@@ -8,7 +8,6 @@ public class SeedPlacer : MonoBehaviour
 {
     public int seeds;
     public InputActionReference placeInput;
-    public GameObject square;
     public GameObject seedPrefab;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -51,6 +50,7 @@ public class SeedPlacer : MonoBehaviour
         // Vector2 mousePos = Vector2.zero;
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint( Mouse.current.position.ReadValue());
         Vector2 placePos = PositionToGrid(mouseWorldPos);
-        square.transform.position = placePos;
+        Instantiate(seedPrefab, placePos, Quaternion.identity);
+        
     }
 }
