@@ -1,4 +1,5 @@
 
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -8,6 +9,7 @@ public class SeedPlacer : MonoBehaviour
     public int seeds;
     public InputActionReference placeInput;
     public GameObject square;
+    public GameObject seedPrefab;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,17 +28,29 @@ public class SeedPlacer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // PlaceSeed();
     }
     public void TryPlaceSeed(InputAction.CallbackContext obj)
     {
-        PlaceSeed(obj);
+        PlaceSeed();
     }
-    public void PlaceSeed(InputAction.CallbackContext obj)
+    void HighlightMouse()
+    {
+        
+    }
+    Vector2 PositionToGrid(Vector2 position)
+    {
+        Vector2 output = position;
+        output.x = math.round(position.x);
+        output.y = math.round(position.y);
+        return output;
+    }
+    public void PlaceSeed()
     {
 
         // Vector2 mousePos = Vector2.zero;
-        Vector2 placePos = Camera.main.ScreenToWorldPoint( Mouse.current.position.ReadValue());
+        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint( Mouse.current.position.ReadValue());
+        Vector2 placePos = PositionToGrid(mouseWorldPos);
         square.transform.position = placePos;
     }
 }
