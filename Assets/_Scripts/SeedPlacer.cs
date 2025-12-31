@@ -6,36 +6,10 @@ using UnityEngine.UIElements;
 
 public class SeedPlacer : MonoBehaviour
 {
-    public int seeds;
-    public InputActionReference placeInput;
     public GameObject seedPrefab;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void TryPlaceSeed(int seedCount)
     {
-        
-    }
-
-    private void OnEnable()
-    {
-        placeInput.action.started += TryPlaceSeed;
-    }
-    private void OnDisable()
-    {
-        
-        placeInput.action.started -= TryPlaceSeed;
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        // PlaceSeed();
-    }
-    public void TryPlaceSeed(InputAction.CallbackContext obj)
-    {
-        PlaceSeed();
-    }
-    void HighlightMouse()
-    {
-        
+        PlaceSeed(seedCount);
     }
     Vector2 PositionToGrid(Vector2 position)
     {
@@ -44,7 +18,7 @@ public class SeedPlacer : MonoBehaviour
         output.y = math.round(position.y);
         return output;
     }
-    public void PlaceSeed()
+    public void PlaceSeed(int seedCount)
     {
 
         // Vector2 mousePos = Vector2.zero;
