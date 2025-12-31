@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ShopTrigger : MonoBehaviour
 {
+    public UnityEvent shopEnterEvent, shopExitEvent, shopStayEvent;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,6 +18,10 @@ public class ShopTrigger : MonoBehaviour
 
      void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log(col.gameObject.name + " : " + gameObject.name + " : " + Time.time);
+        shopEnterEvent.Invoke();
+    }
+    void OnTriggerExit2D(Collider2D col)
+    {
+        shopExitEvent.Invoke();
     }
 }
