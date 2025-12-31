@@ -9,9 +9,22 @@ public class SeedPlacer : MonoBehaviour
     public GameObject seedPrefab;
     public bool TryPlaceSeed()
     {
+        Vector2Int placePos = GridHelper.GetCurrentMouseGridPos();
+        GameManager gameManager = GameManager.Instance;
+        TileObject previousTile = gameManager.GetTile(placePos);
         // out of bounds
         // already filled
-        if(GameManager.Instance.GetTile().isOverrideable)
+        if(gameManager.IsInBounds(placePos) == false)
+        {
+            Debug.LogWarning("Tile is out of bounds");
+            return false;
+        }
+        else if(previousTile != null && previousTile.isOverrideable == false)
+        {
+            Debug.LogWarning("Tile is full");
+            return false;
+        }
+        
         PlaceSeed();
         return true;
     }

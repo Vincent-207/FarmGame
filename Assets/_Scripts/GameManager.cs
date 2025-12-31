@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     TMP_Text seedCounter;
     [SerializeField]
+    int gridWidth, gridHeight;
     TileObject[,] grid;
     
     void OnEnable()
@@ -21,6 +22,23 @@ public class GameManager : MonoBehaviour
     void OnDisable()
     {
         placeAction.action.started -= PlaceSeed;
+    }
+    public bool IsInBounds(Vector2Int pos)
+    {
+        if(pos.x < 0 || pos.x >= grid.Length)
+        {
+            return false;
+        }
+        else if(pos.y < 0 || pos.y >= grid.Length)
+        {
+            return false;
+        }
+
+        return true;
+    }
+    public void AddTile(TileObject tileObject, Vector2Int gridLocalPosititon)
+    {
+        grid[gridLocalPosititon.x, gridLocalPosititon.y] = tileObject;
     }
 
     public void PlaceSeed(InputAction.CallbackContext obj)
@@ -36,6 +54,16 @@ public class GameManager : MonoBehaviour
 
     public TileObject GetTile(Vector2Int position)
     {
+        if(position.x < 0 || position.x > grid.Length)
+        {
+            Debug.LogWarning("X is out of bounds");
+            return null;
+        }
+        else if(position.y < 0 || position.y > grid.GetLength(0))
+        {
+            Debug.LogWarning("Y is out of bounds");
+            return null;
+        }
         return grid[position.x, position.y];
     }
 
@@ -46,6 +74,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         updateSeedCounter();
+        grid = new TileObject[gridWidth, gridHeight];
     }
     private void Awake()
     {
