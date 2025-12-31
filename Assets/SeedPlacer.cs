@@ -7,6 +7,7 @@ public class SeedPlacer : MonoBehaviour
 {
     public int seeds;
     public InputActionReference placeInput;
+    public GameObject square;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,11 +30,13 @@ public class SeedPlacer : MonoBehaviour
     }
     public void TryPlaceSeed(InputAction.CallbackContext obj)
     {
-        PlaceSeed();
+        PlaceSeed(obj);
     }
-    public void PlaceSeed()
+    public void PlaceSeed(InputAction.CallbackContext obj)
     {
 
         // Vector2 mousePos = Vector2.zero;
+        Vector2 placePos = Camera.main.ScreenToWorldPoint( Mouse.current.position.ReadValue());
+        square.transform.position = placePos;
     }
 }
