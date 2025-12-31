@@ -7,9 +7,10 @@ using UnityEngine.UIElements;
 public class SeedPlacer : MonoBehaviour
 {
     public GameObject seedPrefab;
-    public void TryPlaceSeed(int seedCount)
+    public bool TryPlaceSeed(int seedCount)
     {
         PlaceSeed(seedCount);
+        return true;
     }
     Vector2 PositionToGrid(Vector2 position)
     {

@@ -22,8 +22,12 @@ public class GameManager : MonoBehaviour
 
     public void PlaceSeed(InputAction.CallbackContext obj)
     {
-        seedPlacer.TryPlaceSeed(seeds);
-        seeds--;
+        if(seeds > 0)
+        {
+            seedPlacer.TryPlaceSeed(seeds);
+            seeds--;
+            
+        }
         updateSeedCounter();
     }
 
