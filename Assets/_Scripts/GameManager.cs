@@ -73,11 +73,11 @@ public class GameManager : MonoBehaviour
     }
     public bool IsInBounds(Vector2Int pos)
     {
-        if(pos.x < 0 || pos.x >= grid.Length)
+        if(pos.x < 0 || pos.x >= gridWidth)
         {
             return false;
         }
-        else if(pos.y < 0 || pos.y >= grid.Length)
+        else if(pos.y < 0 || pos.y >= gridHeight)
         {
             return false;
         }
