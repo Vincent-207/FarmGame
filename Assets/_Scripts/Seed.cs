@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class Seed : MonoBehaviour
+public class Seed : TileObject
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public int growthStages;

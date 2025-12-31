@@ -7,24 +7,24 @@ using UnityEngine.UIElements;
 public class SeedPlacer : MonoBehaviour
 {
     public GameObject seedPrefab;
-    public bool TryPlaceSeed(int seedCount)
+    public bool TryPlaceSeed()
     {
-        PlaceSeed(seedCount);
+        // out of bounds
+        // already filled
+        if(GameManager.Instance.GetTile().isOverrideable)
+        PlaceSeed();
         return true;
     }
-    Vector2 PositionToGrid(Vector2 position)
+    bool IsInBounds()
     {
-        Vector2 output = position;
-        output.x = math.round(position.x);
-        output.y = math.round(position.y);
-        return output;
+        return false;
     }
-    public void PlaceSeed(int seedCount)
+    public void PlaceSeed()
     {
 
         // Vector2 mousePos = Vector2.zero;
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint( Mouse.current.position.ReadValue());
-        Vector2 placePos = PositionToGrid(mouseWorldPos);
+        Vector2 placePos = GridHelper.GetCurrentMouseGridPos();
         Instantiate(seedPrefab, placePos, Quaternion.identity);
         
     }

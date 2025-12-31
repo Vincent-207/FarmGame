@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5edced7aad31de4fa8129a2b14c4d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  seeds: 1
+  seeds: 5
   seedPlacer: {fileID: 1508440155}
   placeAction: {fileID: 172011182}
   seedCounter: {fileID: 430101254}
@@ -993,6 +993,10 @@ PrefabInstance:
     - target: {fileID: 4899441059625623011, guid: f4fd994864fa3ed47be68f9dabdc40ea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840770157192117998, guid: f4fd994864fa3ed47be68f9dabdc40ea, type: 3}
+      propertyPath: TileName
+      value: DevSeed1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
