@@ -527,7 +527,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   seeds: 1
   placeInput: {fileID: 1336679067}
-  seedPrefab: {fileID: 0}
+  seedPrefab: {fileID: 1543381971}
 --- !u!1 &1543381971
 GameObject:
   m_ObjectHideFlags: 0
