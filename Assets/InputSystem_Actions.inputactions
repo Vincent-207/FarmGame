@@ -495,7 +495,7 @@
                 {
                     "name": "",
                     "id": "a4cf03f3-478a-4bce-a031-ddaa642d9763",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/g",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",

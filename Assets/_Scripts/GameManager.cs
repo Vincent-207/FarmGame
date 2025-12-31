@@ -7,11 +7,11 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance {get; private set;}
-    public int seeds, cropCount;
+    public int seeds, cropCount, coins;
     public SeedPlacer seedPlacer;
     public InputActionReference placeAction, harvestAction;
     [SerializeField]
-    TMP_Text seedCounter, wheatCounter;
+    TMP_Text seedCounter, wheatCounter, coinCounter;
     [SerializeField]
     int gridWidth, gridHeight;
     TileObject[,] grid;
@@ -101,10 +101,11 @@ public class GameManager : MonoBehaviour
         }
         return grid[position.x, position.y];
     }
-    void UpdateSigns()
+    public void UpdateSigns()
     {
         seedCounter.text = String.Format("Seeds: {0}", seeds);
         wheatCounter.text = String.Format("Wheat: {0}", cropCount);
+        coinCounter.text = String.Format("Coins: {0}", coins);
     }
     void Start()
     {
