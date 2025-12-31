@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     {
         seedPlacer.TryPlaceSeed(seeds);
         seeds--;
+        updateSeedCounter();
     }
 
     void updateSeedCounter()
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        updateSeedCounter();
     }
 
     // Update is called once per frame

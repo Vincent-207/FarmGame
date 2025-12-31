@@ -128,6 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 73559113}
+  - component: {fileID: 73559114}
   m_Layer: 0
   m_Name: Game manager
   m_TagString: Untagged
@@ -150,6 +151,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &73559114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73559112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5edced7aad31de4fa8129a2b14c4d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  seeds: 1
+  seedPlacer: {fileID: 1508440155}
+  placeAction: {fileID: 172011182}
+  seedCounter: {fileID: 430101254}
+--- !u!114 &172011182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
+  m_Name: Player/Place
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
+  m_Asset: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_ActionId: 90d40c9d-8c9b-497e-8adf-7a88aeb1c0bd
 --- !u!1 &430101252
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,20 +768,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1336679067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
-  m_Name: Player/Place
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
-  m_Asset: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  m_ActionId: 90d40c9d-8c9b-497e-8adf-7a88aeb1c0bd
 --- !u!1 &1508440153
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,8 +812,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410c042f5d188ba40b3c61c73a7cba0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  seeds: 1
-  placeInput: {fileID: 1336679067}
   seedPrefab: {fileID: 1543381971}
 --- !u!1 &1543381971 stripped
 GameObject:
