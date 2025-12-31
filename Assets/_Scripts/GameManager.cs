@@ -1,27 +1,61 @@
 using System;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance {get; private set;}
-    public int seeds;
+    public int seeds, cropCount;
     public SeedPlacer seedPlacer;
-    public InputActionReference placeAction;
+    public InputActionReference placeAction, harvestAction;
     [SerializeField]
-    TMP_Text seedCounter;
+    TMP_Text seedCounter, wheatCounter;
     [SerializeField]
     int gridWidth, gridHeight;
     TileObject[,] grid;
     
+    void Harvest(InputAction.CallbackContext obj)
+    {
+        Vector2Int gridPos = GridHelper.GetCurrentMouseGridPos();
+        TileObject tile = GetTile(gridPos);
+        if(tile == null)
+        {
+            Debug.LogWarning("Couldn't find tile");
+            return;
+        }
+
+        Seed seed = tile.GetComponent<Seed>();
+        if(seed == null)
+        {
+            Debug.LogWarning("Couldn't find seed");
+            return;
+        }
+        else if(seed.IsHarvestable() == false)
+        {
+            Debug.LogWarning("Seed isn't harvestable");
+            return;
+            
+        }
+        else
+        {
+            Debug.Log("Harvested!");
+            Destroy(grid[gridPos.x, gridPos.y].gameObject);
+            cropCount++;
+            UpdateSigns();
+        }
+
+    }
     void OnEnable()
     {
         placeAction.action.started += PlaceSeed;
+        harvestAction.action.started += Harvest;
     }
     void OnDisable()
     {
         placeAction.action.started -= PlaceSeed;
+        harvestAction.action.started -= Harvest;
     }
     public bool IsInBounds(Vector2Int pos)
     {
@@ -40,18 +74,19 @@ public class GameManager : MonoBehaviour
     {
         grid[gridLocalPosititon.x, gridLocalPosititon.y] = tileObject;
     }
-
     public void PlaceSeed(InputAction.CallbackContext obj)
     {
         if(seeds > 0)
         {
-            seedPlacer.TryPlaceSeed();
-            seeds--;
+            if(seedPlacer.TryPlaceSeed())
+            {
+                seeds--;
+                
+            }
             
         }
-        updateSeedCounter();
+        UpdateSigns();
     }
-
     public TileObject GetTile(Vector2Int position)
     {
         if(position.x < 0 || position.x > grid.Length)
@@ -66,14 +101,14 @@ public class GameManager : MonoBehaviour
         }
         return grid[position.x, position.y];
     }
-
-    void updateSeedCounter()
+    void UpdateSigns()
     {
         seedCounter.text = String.Format("Seeds: {0}", seeds);
+        wheatCounter.text = String.Format("Wheat: {0}", cropCount);
     }
     void Start()
     {
-        updateSeedCounter();
+        UpdateSigns();
         grid = new TileObject[gridWidth, gridHeight];
     }
     private void Awake()

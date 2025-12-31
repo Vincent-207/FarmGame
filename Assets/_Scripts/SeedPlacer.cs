@@ -25,20 +25,19 @@ public class SeedPlacer : MonoBehaviour
             return false;
         }
         
-        PlaceSeed();
+        PlaceSeed(placePos);
         return true;
     }
     bool IsInBounds()
     {
         return false;
     }
-    public void PlaceSeed()
+    public void PlaceSeed(Vector2Int placePos)
     {
-
-        // Vector2 mousePos = Vector2.zero;
+        // TODO make dependent on grid position;
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint( Mouse.current.position.ReadValue());
-        Vector2 placePos = GridHelper.GetCurrentMouseGridPos();
-        Instantiate(seedPrefab, placePos, Quaternion.identity);
+        TileObject placedSeed = Instantiate(seedPrefab,(Vector2) placePos, Quaternion.identity).GetComponent<TileObject>();
+        GameManager.Instance.AddTile(placedSeed, placePos);
         
     }
 }

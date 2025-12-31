@@ -34,4 +34,14 @@ public class Seed : TileObject
         seedRenderer.color = growthGradient.Evaluate(currentGrowthStage/(float) growthStages);
 
     }
+    public bool IsHarvestable()
+    {
+        if(currentGrowthStage >= growthStages)
+        {
+            Debug.Log("IsHarvestable");
+            return true;
+        }
+        
+        return false;
+    }
 }
