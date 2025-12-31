@@ -9,8 +9,8 @@ public class SeedPlacer : MonoBehaviour
     public GameObject seedPrefab;
     public bool TryPlaceSeed()
     {
-        Vector2Int placePos = GridHelper.GetCurrentMouseGridPos();
         GameManager gameManager = GameManager.Instance;
+        Vector2Int placePos = gameManager.GetMouseGridPos();
         TileObject previousTile = gameManager.GetTile(placePos);
         // out of bounds
         // already filled
@@ -27,10 +27,6 @@ public class SeedPlacer : MonoBehaviour
         
         PlaceSeed(placePos);
         return true;
-    }
-    bool IsInBounds()
-    {
-        return false;
     }
     public void PlaceSeed(Vector2Int placePos)
     {

@@ -3,6 +3,7 @@ using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SocialPlatforms;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,8 +15,21 @@ public class GameManager : MonoBehaviour
     TMP_Text seedCounter, wheatCounter, coinCounter;
     [SerializeField]
     int gridWidth, gridHeight;
+    [SerializeField]
+    Vector2Int GridPos;
     TileObject[,] grid;
-    
+    public Vector2Int GetMouseGridPos()
+    {
+       
+        Vector2Int localMousePosition = GetMouseWorldPos() - GridPos;
+        return localMousePosition;
+
+    }
+    public Vector2Int GetMouseWorldPos()
+    {
+        Vector2 worldMousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        return Vector2Int.RoundToInt(worldMousePosition);
+    }
     void Harvest(InputAction.CallbackContext obj)
     {
         Vector2Int gridPos = GridHelper.GetCurrentMouseGridPos();
