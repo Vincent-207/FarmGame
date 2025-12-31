@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 685076105064413124}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.49, y: 5.53, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 279daa39512ee9040be275eab85b2e41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,8 +104,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2dd2b48cc754740a14a384e9399e8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  TileName: 
-  growthStages: 5
+  TileName: wad
+  position: {x: 0, y: 0}
+  isOverrideable: 0
   growthDuration: 10
   currentGrowthTime: 0
   currentGrowthStage: 0
@@ -139,3 +140,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+  growthStates:
+  - {fileID: 21300000, guid: 279daa39512ee9040be275eab85b2e41, type: 3}
+  - {fileID: 21300000, guid: 1dbccef5bbffb5a4abd4ac40799465b7, type: 3}
+  - {fileID: 21300000, guid: 6dfce4f57866eb04095548ee8405f57b, type: 3}

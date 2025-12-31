@@ -1,10 +1,11 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class Seed : TileObject
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public int growthStages;
+    
     public float growthDuration;
     [SerializeField]
     float currentGrowthTime;
@@ -13,6 +14,8 @@ public class Seed : TileObject
     [SerializeField]
     Gradient growthGradient;
     SpriteRenderer seedRenderer;
+    [SerializeField]
+    Sprite[] growthStates;
     void Start()
     {
         currentGrowthTime = 0;
@@ -30,13 +33,13 @@ public class Seed : TileObject
     void Update()
     {
         currentGrowthTime += Time.deltaTime;
-        currentGrowthStage = (int) (10 * currentGrowthTime/growthDuration);
-        seedRenderer.color = growthGradient.Evaluate(currentGrowthStage/(float) growthStages);
-
+        currentGrowthStage = math.min((int) (10 * currentGrowthTime/growthDuration), growthStates.Length - 1);
+        // seedRenderer.color = growthGradient.Evaluate(currentGrowthStage/(float) growthStates.Length);
+        seedRenderer.sprite = growthStates[currentGrowthStage];
     }
     public bool IsHarvestable()
     {
-        if(currentGrowthStage >= growthStages)
+        if(currentGrowthStage >= growthStates.Length - 1)
         {
             Debug.Log("IsHarvestable");
             return true;
