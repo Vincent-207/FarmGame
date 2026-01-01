@@ -30,8 +30,8 @@ public class ShootGunTest : MonoBehaviour
         toMouse.Normalize();
         Vector3 spawnPos = (toMouse * spawnDistance) + transform.position;
         spawnPos.z = 0;
-        GameObject shotBullet = Instantiate(bullet, spawnPos, Quaternion.identity);
-        shotBullet.transform.rotation = LookAt2D(shotBullet.transform);
+        float rot_z = Mathf.Atan2(toMouse.y, toMouse.x) * Mathf.Rad2Deg;
+        GameObject shotBullet = Instantiate(bullet, spawnPos, Quaternion.Euler(0f, 0f, rot_z - 90));
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
