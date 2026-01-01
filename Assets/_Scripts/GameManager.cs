@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance {get; private set;}
     public int seeds, cropCount, coins;
     public SeedPlacer seedPlacer;
-    public InputActionReference placeAction, harvestAction;
+    public InputActionReference placeAction, harvestAction, examineAction;
     [SerializeField]
     TMP_Text seedCounter, wheatCounter, coinCounter;
     [SerializeField]
@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     Vector2Int GridPos;
     TileObject[,] grid;
+    
     public Vector2Int GetMouseGridPos()
     {
        
@@ -83,6 +84,13 @@ public class GameManager : MonoBehaviour
         }
 
         return true;
+    }
+
+    public bool IsValidTile(Vector2Int gridPos)
+    {
+        TileObject tile = GetTile(gridPos);
+
+        return IsInBounds(gridPos) && tile != null;
     }
     public void AddTile(TileObject tileObject, Vector2Int gridLocalPosititon)
     {
