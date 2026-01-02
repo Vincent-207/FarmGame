@@ -17,7 +17,7 @@ public class HighlightCursor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("pos: " + gameManager.GetMouseGridPos().ToString());
+        // Debug.Log("cursor pos: " + gameManager.GetMouseGridPos().ToString());
         doHighlight = gameManager.IsInBounds(gameManager.GetMouseGridPos());
         if(doHighlight)
         {

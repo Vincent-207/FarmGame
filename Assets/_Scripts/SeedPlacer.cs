@@ -13,7 +13,7 @@ public class SeedPlacer : MonoBehaviour
         Vector2Int placePos = gameManager.GetMouseGridPos();
         TileObject previousTile = gameManager.GetTile(placePos);
         // out of bounds
-        // already filled
+        // already fille
         if(gameManager.IsInBounds(placePos) == false)
         {
             Debug.LogWarning("Tile is out of bounds");

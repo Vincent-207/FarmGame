@@ -2,7 +2,7 @@ using Unity.Mathematics;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class Seed : TileObject
+public class Plant : TileObject, ITickable
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     
@@ -13,30 +13,16 @@ public class Seed : TileObject
     int currentGrowthStage;
     [SerializeField]
     Gradient growthGradient;
-    SpriteRenderer seedRenderer;
+    SpriteRenderer spriteRenderer;
     [SerializeField]
     Sprite[] growthStates;
     void Start()
     {
         currentGrowthTime = 0;
-        seedRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         
     }
 
-    Gradient CreateGrowthGradient()
-    {
-        Gradient output = new Gradient();
-        return output;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        currentGrowthTime += Time.deltaTime;
-        currentGrowthStage = math.min((int) (10 * currentGrowthTime/growthDuration), growthStates.Length - 1);
-        // seedRenderer.color = growthGradient.Evaluate(currentGrowthStage/(float) growthStates.Length);
-        seedRenderer.sprite = growthStates[currentGrowthStage];
-    }
     public bool IsHarvestable()
     {
         if(currentGrowthStage >= growthStates.Length - 1)
@@ -46,5 +32,16 @@ public class Seed : TileObject
         }
         
         return false;
+    }
+    public void DoTick()
+    {
+        currentGrowthStage = currentGrowthStage >= growthStates.Length - 1 ? growthStates.Length - 1: currentGrowthStage + 1;
+        UpdateValues();
+
+    }
+
+    void UpdateValues()
+    {
+        spriteRenderer.sprite = growthStates[currentGrowthStage];
     }
 }

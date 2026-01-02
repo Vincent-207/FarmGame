@@ -2,11 +2,13 @@ using System;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.SocialPlatforms;
 
 public class GameManager : MonoBehaviour
 {
+    public UnityEvent dayTick;
     public static GameManager Instance {get; private set;}
     public int seeds, cropCount, coins;
     public SeedPlacer seedPlacer;
@@ -41,7 +43,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        Seed seed = tile.GetComponent<Seed>();
+        Plant seed = tile.GetComponent<Plant>();
         if(seed == null)
         {
             Debug.LogWarning("Couldn't find seed");
@@ -85,7 +87,10 @@ public class GameManager : MonoBehaviour
 
         return true;
     }
-
+    public void EndDay()
+    {
+        dayTick.Invoke();
+    }
     public bool IsValidTile(Vector2Int gridPos)
     {
         TileObject tile = GetTile(gridPos);
@@ -95,6 +100,13 @@ public class GameManager : MonoBehaviour
     public void AddTile(TileObject tileObject, Vector2Int gridLocalPosititon)
     {
         grid[gridLocalPosititon.x, gridLocalPosititon.y] = tileObject;
+        Debug.Log("Added tile!");
+        ITickable tickable = tileObject.GetComponent<ITickable>();
+        if(tickable != null)
+        {
+            Debug.Log("Found tickable!");
+            dayTick.AddListener(tickable.DoTick);
+        }
     }
     public void PlaceSeed(InputAction.CallbackContext obj)
     {
@@ -133,6 +145,10 @@ public class GameManager : MonoBehaviour
     {
         UpdateSigns();
         grid = new TileObject[gridWidth, gridHeight];
+        if(dayTick == null)
+        {
+            dayTick = new UnityEvent();
+        }
     }
     private void Awake()
     {
@@ -145,4 +161,10 @@ public class GameManager : MonoBehaviour
             Instance = this; 
         } 
     }
+}
+
+public interface ITickable
+{
+    // Interface for everything that updates every day.
+    public void DoTick();
 }

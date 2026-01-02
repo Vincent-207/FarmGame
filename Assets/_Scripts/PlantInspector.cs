@@ -7,7 +7,7 @@ public class PlantInspector : MonoBehaviour
 {
     [SerializeField]
     InputActionReference inspectReference;
-    public Seed seed;
+    public Plant plant;
     public UnityEvent inspect;
     Image plantImage;
     private void OnEnable()
@@ -26,7 +26,7 @@ public class PlantInspector : MonoBehaviour
         if(gameManager.IsValidTile(gridPos))
         {
             TileObject tile = gameManager.GetTile(gridPos);
-            seed = tile.GetComponent<Seed>();
+            plant = tile.GetComponent<Plant>();
             inspect.Invoke();
         }
     }
