@@ -3,34 +3,27 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Leaf : MonoBehaviour
+public class Leaf : MonoBehaviour, ISprayable
 {
     [SerializeField]
     Sprite[] icons;
-    String Disease;
-    Image image;
-    void UpdateIcon()
-    {
-        if(Disease == "Powdery mildew")
-        {
-            
-        }
-
-    }
-
+    SpriteRenderer spriteRenderer;
     public void Cure()
     {
-        image.sprite = icons[0];
+        spriteRenderer.sprite = icons[0];
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        image = GetComponent<Image>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ApplySpray(Spray spray)
     {
-        
+        if(spray.diseaseCureType == DiseaseType.fungal)
+        {
+            Cure();
+        }
     }
 }

@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class CollisionDebug : MonoBehaviour
+public class Soil : MonoBehaviour
 {
+    public float salinity;
+    public float ph;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -12,13 +14,5 @@ public class CollisionDebug : MonoBehaviour
     void Update()
     {
         
-    }
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("Collision!");
-    }
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        Debug.Log("Trigger!");
     }
 }

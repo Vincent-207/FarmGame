@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class Plant : TileObject, ITickable
+public class Plant : TileObject, ITickable, ISprayable
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     
@@ -19,8 +19,7 @@ public class Plant : TileObject, ITickable
     [SerializeField]
     Sprite[] growthStates;
     // Other stuffs
-    [SerializeField]
-    Leaf[] leaves;
+    public Leaf[] leaves;
     
 
     void Start()
@@ -50,5 +49,13 @@ public class Plant : TileObject, ITickable
     void UpdateValues()
     {
         spriteRenderer.sprite = growthStates[currentGrowthStage];
+    }
+
+    public void ApplySpray(Spray spray)
+    {
+        foreach(Leaf leaf in leaves)
+        {
+            leaf.ApplySpray(spray);
+        }
     }
 }
