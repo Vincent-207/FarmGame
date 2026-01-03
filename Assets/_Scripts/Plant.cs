@@ -1,5 +1,7 @@
+using System;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class Plant : TileObject, ITickable
@@ -16,6 +18,11 @@ public class Plant : TileObject, ITickable
     SpriteRenderer spriteRenderer;
     [SerializeField]
     Sprite[] growthStates;
+    // Other stuffs
+    [SerializeField]
+    Leaf[] leaves;
+    
+
     void Start()
     {
         currentGrowthTime = 0;
