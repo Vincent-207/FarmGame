@@ -4,6 +4,7 @@ using UnityEngine;
 public class Disease
 {
     public String name;
+    public DiseaseType diseaseType;
 }
 
 public enum DiseaseType
@@ -11,4 +12,5 @@ public enum DiseaseType
     none,
     fungal,
     bacterial,
+    terrsitial,
 }

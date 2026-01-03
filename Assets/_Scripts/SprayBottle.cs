@@ -94,10 +94,11 @@ public class SprayBottle : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Trigger!");
+        // Debug.Log("Trigger!");
         ISprayable sprayable = collider.GetComponent<ISprayable>();
         if(sprayable != null)
         {
+            // Debug.Log("Spray!");
             sprayable.ApplySpray(spray);
         }
         else
@@ -112,7 +113,7 @@ public class Spray
 {
 
     float phIncrement;
-    float salinityIncremenet;
+    public float salinityIncremenet;
     public DiseaseType diseaseCureType;
     
 }

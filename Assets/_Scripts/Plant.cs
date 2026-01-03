@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class Plant : TileObject, ITickable, ISprayable
+public class Plant : MonoBehaviour, ISprayable
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     
@@ -20,6 +20,7 @@ public class Plant : TileObject, ITickable, ISprayable
     Sprite[] growthStates;
     // Other stuffs
     public Leaf[] leaves;
+    public Soil soil;
     
 
     void Start()
@@ -28,7 +29,7 @@ public class Plant : TileObject, ITickable, ISprayable
         spriteRenderer = GetComponent<SpriteRenderer>();
         
     }
-
+    
     public bool IsHarvestable()
     {
         if(currentGrowthStage >= growthStates.Length - 1)
@@ -48,14 +49,26 @@ public class Plant : TileObject, ITickable, ISprayable
 
     void UpdateValues()
     {
-        spriteRenderer.sprite = growthStates[currentGrowthStage];
+        // spriteRenderer.sprite = growthStates[currentGrowthStage];
+        if(soil.salinity > 5)
+        {
+            Debug.LogWarning("Doing death!");
+        }
     }
 
     public void ApplySpray(Spray spray)
     {
         foreach(Leaf leaf in leaves)
         {
-            leaf.ApplySpray(spray);
+            leaf.ApplyNutrients(spray);
+            soil.ApplyNutrients(spray);
         }
+
+        UpdateValues();
     }
+}
+
+public interface INutritientable
+{
+    public void ApplyNutrients(Spray spray);
 }

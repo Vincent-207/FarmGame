@@ -1,18 +1,23 @@
 using UnityEngine;
 
-public class Soil : MonoBehaviour
+public class Soil : MonoBehaviour, INutritientable, ISprayable
 {
+    public Plant plant;
     public float salinity;
     public float ph;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void ApplySpray(Spray spray)
     {
-        
+        plant.ApplySpray(spray);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ApplyNutrients(Spray spray)
     {
-        
+        salinity += spray.salinityIncremenet;
     }
+
+    void Start()
+    {
+        plant = transform.parent.GetComponent<Plant>();
+    }
+
 }

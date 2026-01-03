@@ -3,10 +3,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Leaf : MonoBehaviour, ISprayable
+public class Leaf : MonoBehaviour, ISprayable, INutritientable
 {
+    public Plant plant;
     [SerializeField]
     Sprite[] icons;
+    public DiseaseType diseaseType;
     SpriteRenderer spriteRenderer;
     public void Cure()
     {
@@ -16,14 +18,20 @@ public class Leaf : MonoBehaviour, ISprayable
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        
+        plant = transform.parent.GetComponent<Plant>();
     }
 
-    public void ApplySpray(Spray spray)
+    public void ApplyNutrients(Spray spray)
     {
-        if(spray.diseaseCureType == DiseaseType.fungal)
+        if(spray.diseaseCureType == diseaseType)
         {
             Cure();
+
         }
+    }
+    public void ApplySpray(Spray spray)
+    {
+        Debug.Log("Apply");
+        
     }
 }
