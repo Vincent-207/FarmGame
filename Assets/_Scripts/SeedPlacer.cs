@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 public class SeedPlacer : MonoBehaviour
 {
     public GameObject seedPrefab;
+    public GameObject plantPrefab;
+    public GameManager gameManager;
     public bool TryPlaceSeed()
     {
         GameManager gameManager = GameManager.Instance;
@@ -35,5 +37,12 @@ public class SeedPlacer : MonoBehaviour
         TileObject placedSeed = Instantiate(seedPrefab,(Vector2) placePos, Quaternion.identity).GetComponent<TileObject>();
         GameManager.Instance.AddTile(placedSeed, placePos);
         
+        GameObject inspectionPlant = Instantiate(plantPrefab);
+        inspectionPlant.transform.position = gameManager.hidePlantsPos;
+        placedSeed.GetComponent<FarmingPlant>().plant = inspectionPlant.GetComponent<Plant>();
+    }
+    void Start()
+    {
+        gameManager = GameManager.Instance;
     }
 }

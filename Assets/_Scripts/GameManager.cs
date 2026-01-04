@@ -8,7 +8,7 @@ using UnityEngine.SocialPlatforms;
 
 public class GameManager : MonoBehaviour
 {
-    public UnityEvent dayTick;
+    public UnityEvent dayTick, hourTick;
     public static GameManager Instance {get; private set;}
     public int seeds, cropCount, coins;
     public SeedPlacer seedPlacer;
@@ -20,7 +20,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     Vector2Int GridPos;
     TileObject[,] grid;
-    
+    public Vector3 hidePlantsPos;
+    public void EndHour()
+    {
+        hourTick.Invoke();
+    }
     public Vector2Int GetMouseGridPos()
     {
        
@@ -100,14 +104,22 @@ public class GameManager : MonoBehaviour
     public void AddTile(TileObject tileObject, Vector2Int gridLocalPosititon)
     {
         grid[gridLocalPosititon.x, gridLocalPosititon.y] = tileObject;
-        Debug.Log("Added tile!");
-        ITickable tickable = tileObject.GetComponent<ITickable>();
+        // Debug.Log("Added tile!");
+        // Add day tick
+        IDayTickable tickable = tileObject.GetComponent<IDayTickable>();
         if(tickable != null)
         {
-            Debug.Log("Found tickable!");
-            dayTick.AddListener(tickable.DoTick);
+            // Debug.Log("Found tickable!");
+            dayTick.AddListener(tickable.DoDayTick);
+        }
+        IHourTickable hourTickable = tileObject.GetComponent<IHourTickable>();
+        
+        if(hourTickable != null)
+        {
+            hourTick.AddListener(hourTickable.DoHourTick);
         }
     }
+
     public void PlaceSeed(InputAction.CallbackContext obj)
     {
         if(seeds > 0)
@@ -145,10 +157,8 @@ public class GameManager : MonoBehaviour
     {
         UpdateSigns();
         grid = new TileObject[gridWidth, gridHeight];
-        if(dayTick == null)
-        {
-            dayTick = new UnityEvent();
-        }
+        dayTick ??= new UnityEvent();
+        hourTick ??= new UnityEvent();
     }
     private void Awake()
     {
@@ -163,8 +173,13 @@ public class GameManager : MonoBehaviour
     }
 }
 
-public interface ITickable
+public interface IDayTickable
 {
     // Interface for everything that updates every day.
-    public void DoTick();
+    public void DoDayTick();
+}
+
+public interface IHourTickable
+{
+    public void DoHourTick();
 }

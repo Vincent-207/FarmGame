@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
@@ -42,11 +44,21 @@ public class Plant : MonoBehaviour, ISprayable
     }
     public void DoTick()
     {
-        currentGrowthStage = currentGrowthStage >= growthStates.Length - 1 ? growthStates.Length - 1: currentGrowthStage + 1;
+        
         UpdateValues();
 
     }
 
+    public void GenerateDiseases()
+    {
+        Debug.Log("Gening!");
+        List<Disease> leafDiseases = leaves[0].diseases; 
+        if(leafDiseases == null)
+        {
+            Debug.Log("is null :{");
+        }
+        leaves[0].AddDisease();
+    }
     void UpdateValues()
     {
         // spriteRenderer.sprite = growthStates[currentGrowthStage];
@@ -55,7 +67,6 @@ public class Plant : MonoBehaviour, ISprayable
             Debug.LogWarning("Doing death!");
         }
     }
-
     public void ApplySpray(Spray spray)
     {
         foreach(Leaf leaf in leaves)
