@@ -107,9 +107,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2dd2b48cc754740a14a384e9399e8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Plant
-  TileName: 
-  position: {x: 0, y: 0}
-  isOverrideable: 0
   growthDuration: 0
   currentGrowthTime: 0
   currentGrowthStage: 0
@@ -227,7 +224,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 16
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.3207547, g: 0.16693227, b: 0.06505874, a: 1}
@@ -334,9 +331,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 13
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -4028044130607533057, guid: c8ce7894c3dbbea43b398f5683d8f103, type: 3}
+  m_Sprite: {fileID: 2279161136833275602, guid: 183968ca726278b49825a6c12cc1cc8d, type: 3}
   m_Color: {r: 0.5969721, g: 0.9622642, b: 0.48567107, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -363,6 +360,8 @@ MonoBehaviour:
   - {fileID: -502962801787301635, guid: 981123ccede278d4891cf0c7c9256707, type: 3}
   - {fileID: -4028044130607533057, guid: c8ce7894c3dbbea43b398f5683d8f103, type: 3}
   diseaseType: 1
+  diseases: []
+  diseasePrefabs: []
 --- !u!1 &9190596758267668964
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +444,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 15
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.20604627, g: 0.3962264, b: 0.1476504, a: 1}

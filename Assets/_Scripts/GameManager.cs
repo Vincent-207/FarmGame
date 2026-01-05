@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,22 +9,31 @@ using UnityEngine.SocialPlatforms;
 
 public class GameManager : MonoBehaviour
 {
+    
     public UnityEvent dayTick, hourTick;
+    public float time;
     public static GameManager Instance {get; private set;}
     public int seeds, cropCount, coins;
     public SeedPlacer seedPlacer;
     public InputActionReference placeAction, harvestAction, examineAction;
-    [SerializeField]
-    TMP_Text seedCounter, wheatCounter, coinCounter;
-    [SerializeField]
-    int gridWidth, gridHeight;
-    [SerializeField]
-    Vector2Int GridPos;
-    TileObject[,] grid;
+    [SerializeField] TMP_Text seedCounter, wheatCounter, coinCounter, clockTextbox;
     public Vector3 hidePlantsPos;
+    [Header("Grid settings")]
+    [SerializeField] int gridWidth, gridHeight;
+    [SerializeField] Vector2Int GridPos;
+    TileObject[,] grid;
+    
+    void updateClock()
+    {
+        clockTextbox.text = FormatTime(time);
+    }
     public void EndHour()
     {
+        time += 60;
+        updateClock();
+        VisitorManager.Instance.updateTime(time);
         hourTick.Invoke();
+
     }
     public Vector2Int GetMouseGridPos()
     {
@@ -119,7 +129,6 @@ public class GameManager : MonoBehaviour
             hourTick.AddListener(hourTickable.DoHourTick);
         }
     }
-
     public void PlaceSeed(InputAction.CallbackContext obj)
     {
         if(seeds > 0)
@@ -152,6 +161,7 @@ public class GameManager : MonoBehaviour
         seedCounter.text = String.Format("Seeds: {0}", seeds);
         wheatCounter.text = String.Format("Wheat: {0}", cropCount);
         coinCounter.text = String.Format("Coins: {0}", coins);
+        updateClock();
     }
     void Start()
     {
@@ -171,7 +181,15 @@ public class GameManager : MonoBehaviour
             Instance = this; 
         } 
     }
+
+    public String FormatTime(float timeInSeconds)
+    {
+        int minutes = (int) timeInSeconds / 60;
+        int seconds = (int) timeInSeconds - minutes * 60;
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
 }
+
 
 public interface IDayTickable
 {

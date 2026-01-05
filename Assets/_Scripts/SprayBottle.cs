@@ -38,10 +38,11 @@ public class SprayBottle : MonoBehaviour
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         mouseWorldPos.z = 0;
         RB.position = mouseWorldPos;
+        plant = PlantManager.Instance.currentPlant;
         LookAtClosestLeaf();
         
     }
-
+    
     void LookAtClosestLeaf()
     {
         // update closest leaf

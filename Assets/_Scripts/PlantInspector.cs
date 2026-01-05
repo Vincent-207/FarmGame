@@ -10,6 +10,9 @@ public class PlantInspector : MonoBehaviour
     public Plant plant;
     public UnityEvent inspect;
     Image plantImage;
+    [SerializeField]
+    GameObject inspectScreen;
+    public Vector3 showPos;
     private void OnEnable()
     {
         inspectReference.action.started += TryInspect;
@@ -26,8 +29,23 @@ public class PlantInspector : MonoBehaviour
         if(gameManager.IsValidTile(gridPos))
         {
             TileObject tile = gameManager.GetTile(gridPos);
-            plant = tile.GetComponent<Plant>();
+            plant = tile.GetComponent<FarmingPlant>().plant;
+            PlantManager.Instance.currentPlant = plant;
+            ShowInspectScreen(plant);
             inspect.Invoke();
         }
     }
+
+    void ShowInspectScreen(Plant plant)
+    {
+        // move everything to be shown 
+        inspectScreen.SetActive(true);
+        inspectScreen.transform.position = showPos;
+        plant.transform.position = showPos;
+        Vector3 cameraPos = showPos;
+        cameraPos.z = -10;
+        Camera.main.transform.position = cameraPos;
+    }
+
+
 }

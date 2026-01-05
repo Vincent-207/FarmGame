@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 32982252141253535}
   - component: {fileID: -7517414843127794880}
   m_Layer: 0
-  m_Name: Square 2
+  m_Name: Powdery Mildew
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 14
   m_MaskInteraction: 0
   m_Sprite: {fileID: -4028044130607533057, guid: c8ce7894c3dbbea43b398f5683d8f103, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.53333336}
