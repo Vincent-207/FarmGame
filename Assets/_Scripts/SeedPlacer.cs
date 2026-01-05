@@ -1,5 +1,6 @@
 
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -9,13 +10,16 @@ public class SeedPlacer : MonoBehaviour
     public GameObject seedPrefab;
     public GameObject plantPrefab;
     public GameManager gameManager;
+    SeedSelectable selectedSeed;
+    PlantManager plantManager;
     public bool TryPlaceSeed()
     {
-        GameManager gameManager = GameManager.Instance;
+        // Check for whether this can place the seed. return false and abort so game manager knows and can handle it. 
+        
+        plantManager = PlantManager.Instance;
+        gameManager = GameManager.Instance;
         Vector2Int placePos = gameManager.GetMouseGridPos();
         TileObject previousTile = gameManager.GetTile(placePos);
-        // out of bounds
-        // already fille
         if(gameManager.IsInBounds(placePos) == false)
         {
             Debug.LogWarning("Tile is out of bounds");
@@ -26,7 +30,14 @@ public class SeedPlacer : MonoBehaviour
             Debug.LogWarning("Tile is full");
             return false;
         }
+
+        // verify selected seed exists and is valid
+        if(plantManager.currentSelectedSeed == null || plantManager.currentSelectedSeed.quantity <= 0)
+        {
+            return false;
+        }
         
+        UpdateSelectedSeed();
         PlaceSeed(placePos);
         return true;
     }
@@ -40,6 +51,13 @@ public class SeedPlacer : MonoBehaviour
         GameObject inspectionPlant = Instantiate(plantPrefab);
         inspectionPlant.transform.position = gameManager.hidePlantsPos;
         placedSeed.GetComponent<FarmingPlant>().plant = inspectionPlant.GetComponent<Plant>();
+    }
+    public void UpdateSelectedSeed()
+    {
+        plantManager = PlantManager.Instance;
+        selectedSeed = plantManager.currentSelectedSeed;
+        seedPrefab = selectedSeed.seedPrefab;
+        plantPrefab = selectedSeed.plantPrefab;
     }
     void Start()
     {

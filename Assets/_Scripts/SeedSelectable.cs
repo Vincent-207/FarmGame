@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class SeedSelectable : MonoBehaviour
 {
-    int quantity;
-    GameObject seed;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public int quantity;
+    public GameObject seedPrefab;
+    public GameObject plantPrefab;
+    public PlantType plantType;
+    public void SelectSeed()
     {
-        int a = 2;
+        PlantManager plantManager = PlantManager.Instance;
+        plantManager.currentSelectedSeed = this;
+        GameManager.Instance.seedPlacer.UpdateSelectedSeed();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
+
