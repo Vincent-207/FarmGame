@@ -27,7 +27,7 @@ public class PlantInspector : MonoBehaviour
         GameManager gameManager = GameManager.Instance;
         inspectScreen.SetActive(false);
         inspectScreen.transform.position = hidePos;
-        plant.transform.position = hidePos;
+        if(plant) plant.transform.position = hidePos;
         Camera.main.transform.position = normalPos;
     }
     public void TryInspect(InputAction.CallbackContext obj)

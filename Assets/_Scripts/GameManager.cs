@@ -26,10 +26,19 @@ public class GameManager : MonoBehaviour
     TileObject[,] grid;
     void Update()
     {
-        bool isNewHour = ( (int) (time + Time.deltaTime)) - ((int) time) != 0;
+        int newIntTime = (int) ((time + Time.deltaTime)/60);
+        int IntTime = (int) (time/60);
+        bool isNewHour = (newIntTime - IntTime) > 0;
+        String debugMsg = String.Format("Time: {0}, New time: {0}, Int Time: {0}, Int New Time: {0}", time, time + Time.deltaTime, IntTime, newIntTime);
+
         time += Time.deltaTime;
+        
         if(isNewHour)
         {
+            Debug.Log(debugMsg);
+            Debug.Log("Int time: " +  IntTime.ToString());
+            Debug.Log("new hour!");
+            Debug.Break();
             EndHour();
         }
         updateClock();
@@ -43,6 +52,7 @@ public class GameManager : MonoBehaviour
         updateClock();
         VisitorManager.Instance.updateTime(time);
         hourTick.Invoke();
+        
 
     }
     public Vector2Int GetMouseGridPos()
@@ -187,6 +197,7 @@ public class GameManager : MonoBehaviour
         grid = new TileObject[gridWidth, gridHeight];
         dayTick ??= new UnityEvent();
         hourTick ??= new UnityEvent();
+        Debug.Log(PlantManager.Instance.name);
     }
     private void Awake()
     {
