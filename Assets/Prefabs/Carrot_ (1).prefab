@@ -90,9 +90,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   quantity: 1
-  seedPrefab: {fileID: 6615902787968349542, guid: d1d6da0ebb6390d4b9bfdd35935f33b0, type: 3}
+  seedPrefab: {fileID: 6615902787968349542, guid: aa7e26755233f8a46948ba2b6dd1eaae, type: 3}
   plantPrefab: {fileID: 1444003548440205426, guid: 3c3c88963799e00419feff48b491e1b4, type: 3}
   plantType: 1
+  plantName: Carrot
 --- !u!114 &4729010742035123503
 MonoBehaviour:
   m_ObjectHideFlags: 0

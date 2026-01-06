@@ -10,7 +10,7 @@ public class SeedPlacer : MonoBehaviour
     public GameObject seedPrefab;
     public GameObject plantPrefab;
     public GameManager gameManager;
-    SeedSelectable selectedSeed;
+    public SeedSelectable selectedSeed;
     PlantManager plantManager;
     public bool TryPlaceSeed()
     {
@@ -51,6 +51,7 @@ public class SeedPlacer : MonoBehaviour
         GameObject inspectionPlant = Instantiate(plantPrefab);
         inspectionPlant.transform.position = gameManager.hidePlantsPos;
         placedSeed.GetComponent<FarmingPlant>().plant = inspectionPlant.GetComponent<Plant>();
+        selectedSeed.quantity--;
     }
     public void UpdateSelectedSeed()
     {
@@ -58,6 +59,8 @@ public class SeedPlacer : MonoBehaviour
         selectedSeed = plantManager.currentSelectedSeed;
         seedPrefab = selectedSeed.seedPrefab;
         plantPrefab = selectedSeed.plantPrefab;
+        
+        gameManager.UpdateSigns();
     }
     void Start()
     {

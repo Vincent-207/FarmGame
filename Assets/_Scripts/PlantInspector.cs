@@ -12,7 +12,7 @@ public class PlantInspector : MonoBehaviour
     Image plantImage;
     [SerializeField]
     GameObject inspectScreen;
-    public Vector3 showPos;
+    public Vector3 showPos, hidePos, normalPos;
     private void OnEnable()
     {
         inspectReference.action.started += TryInspect;
@@ -21,6 +21,14 @@ public class PlantInspector : MonoBehaviour
     {
         
         inspectReference.action.started -= TryInspect;
+    }
+    public void CloseInspect()
+    {
+        GameManager gameManager = GameManager.Instance;
+        inspectScreen.SetActive(false);
+        inspectScreen.transform.position = hidePos;
+        plant.transform.position = hidePos;
+        Camera.main.transform.position = normalPos;
     }
     public void TryInspect(InputAction.CallbackContext obj)
     {
@@ -47,5 +55,8 @@ public class PlantInspector : MonoBehaviour
         Camera.main.transform.position = cameraPos;
     }
 
-
+    void Start()
+    {
+        normalPos = Camera.main.transform.position;
+    }
 }

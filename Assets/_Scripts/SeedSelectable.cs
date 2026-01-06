@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class SeedSelectable : MonoBehaviour
@@ -6,6 +7,7 @@ public class SeedSelectable : MonoBehaviour
     public GameObject seedPrefab;
     public GameObject plantPrefab;
     public PlantType plantType;
+    public String plantName;
     public void SelectSeed()
     {
         PlantManager plantManager = PlantManager.Instance;

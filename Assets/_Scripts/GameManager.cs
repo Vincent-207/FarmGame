@@ -18,18 +18,28 @@ public class GameManager : MonoBehaviour
     public InputActionReference placeAction, harvestAction, examineAction;
     [SerializeField] TMP_Text seedCounter, wheatCounter, coinCounter, clockTextbox;
     public Vector3 hidePlantsPos;
+    [SerializeField]
+    GameObject visitorScreen;
     [Header("Grid settings")]
     [SerializeField] int gridWidth, gridHeight;
     [SerializeField] Vector2Int GridPos;
     TileObject[,] grid;
-    
+    void Update()
+    {
+        bool isNewHour = ( (int) (time + Time.deltaTime)) - ((int) time) != 0;
+        time += Time.deltaTime;
+        if(isNewHour)
+        {
+            EndHour();
+        }
+        updateClock();
+    }
     void updateClock()
     {
         clockTextbox.text = FormatTime(time);
     }
     public void EndHour()
     {
-        time += 60;
         updateClock();
         VisitorManager.Instance.updateTime(time);
         hourTick.Invoke();
@@ -158,8 +168,16 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateSigns()
     {
-        seedCounter.text = String.Format("Seeds: {0}", seeds);
-        wheatCounter.text = String.Format("Wheat: {0}", cropCount);
+        if(seedPlacer.selectedSeed == null)
+        {
+            seedCounter.text = "No seed selected";
+        }
+        else
+        {
+            seedCounter.text = seedPlacer.selectedSeed.plantName + String.Format(" Seeds: {0} ", seedPlacer.selectedSeed.quantity);
+            
+        }
+        // wheatCounter.text = String.Format("Wheat: {0}", cropCount);
         coinCounter.text = String.Format("Coins: {0}", coins);
         updateClock();
     }
@@ -181,7 +199,6 @@ public class GameManager : MonoBehaviour
             Instance = this; 
         } 
     }
-
     public String FormatTime(float timeInSeconds)
     {
         int minutes = (int) timeInSeconds / 60;

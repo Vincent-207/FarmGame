@@ -17,10 +17,30 @@ public class SprayBottle : MonoBehaviour
     Leaf closestLeaf;
     public float rotationSpeed;
     Rigidbody2D RB;
+    public InputActionReference drop;
+    bool isEquipClick;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void OnEnable()
+    {
+        drop.action.started += DeEquip;
+    }
+
+    void OnDisable()
+    {
+        drop.action.started -= DeEquip;
+        
+    }
     void Start()
     {
         RB = GetComponent<Rigidbody2D>();    
+    }
+
+    public void DeEquip(InputAction.CallbackContext callbackContext)
+    {
+        isEquipped = false;
+        isEquipClick = false;
+        RB.linearVelocity = Vector2.zero;
+        RB.angularVelocity = 0;
     }
 
     // Update is called once per frame
@@ -37,7 +57,8 @@ public class SprayBottle : MonoBehaviour
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         mouseWorldPos.z = 0;
-        RB.position = mouseWorldPos;
+        RB.MovePosition(mouseWorldPos);
+        
         plant = PlantManager.Instance.currentPlant;
         LookAtClosestLeaf();
         
@@ -72,6 +93,7 @@ public class SprayBottle : MonoBehaviour
         // mirror if neccessary, so spigot is always facing the leaf
         
         Vector3 scale = transform.localScale;
+        // Mathf.Abs(scale.x)
         scale.y = toLeaf.x < 0 ? 1 : -1;
         transform.localScale = scale;
         
@@ -79,18 +101,27 @@ public class SprayBottle : MonoBehaviour
 
     void OnMouseDown()
     {
-        spriteRenderer.sprite = closedHandle;
+        if(isEquipped && !isEquipClick)
+        {
+            spriteRenderer.sprite = closedHandle;
+            
+        }
     }
 
     void OnMouseUp()
-    {
-        
-        spriteRenderer.sprite = openHandle;
+    {        
+        if(isEquipped)
+        {
+            isEquipClick = false;
+            spriteRenderer.sprite = openHandle;
+            
+        }
     }
 
     void OnMouseUpAsButton()
     {
         isEquipped = true;
+        isEquipClick = true;
     }
 
     void OnTriggerEnter2D(Collider2D collider)
