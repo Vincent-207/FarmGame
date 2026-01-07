@@ -4,72 +4,76 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SoilSample : MonoBehaviour
+public class SoilSample : EquipableItem
 {
     [SerializeField]
     float maxScale;
-    public bool isEquiped;
     public SpriteRenderer soil;
     public SpriteRenderer sample;
+    [SerializeField]
+    Transform soilWindow;
+    
     public void SetSample(float normalizedPos)
     {
+        // only sets if higher than current.
         Vector3 scale = sample.transform.localScale;
-        scale.y = maxScale * normalizedPos;
+        float inputWorldDepth = maxScale * normalizedPos;
+        scale.y = inputWorldDepth > scale.y ? inputWorldDepth : scale.y;
         sample.transform.localScale = scale;
     }
 
     void Start()
     {
-        SetSample(0.5f);
+        // SetSample(0.5f);
+        
     }
-    void Update()
+    internal override void Update()
     {
-        if(isEquiped)
+        if(isEquipped)
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            mousePos.z = 0;
-            transform.parent.position = mousePos;
-            if(isInSoil())
+            if(IsWithinSoil())
             {
-                SetSample(getNormalizedDepth());
+                float normalDepth = GetNormalizedPos();
+                SetSample(normalDepth);
             }
         }
+        base.Update();
     }
-
-    float getNormalizedDepth()
+    bool IsWithinSoil()
     {
-        float bottomOfSampler = transform.position.y - transform.lossyScale.y/2;
-        float topOfSampler = transform.position.y - transform.lossyScale.y/2;
-        float topOfSoil = soil.transform.position.y + transform.lossyScale.y/2;
-        float depth = (topOfSoil - bottomOfSampler);
-        float normalDepth = depth / (transform.lossyScale.y);
-        normalDepth = Mathf.Max(0f, normalDepth);
-        String debugMsg = String.Format("Depth: {0}, Normalized: {0}", depth, normalDepth);
-        Debug.Log(debugMsg);
 
-        return 0;
-    }
-    bool isInSoil()
-    {
-        Transform soilTransform = soil.transform;
-        if(transform.position.x > (soil.transform.position.x + soil.transform.lossyScale.x/2))
-        {
-            Debug.Log("out right!");
-            return false;
-        }
-        if(transform.position.x < (soil.transform.position.x - soil.transform.lossyScale.x/2))
-        {
-            Debug.Log("out left");
-            return false;
-        }
-
-
+        if(transform.position.x > (soil.transform.position.x + soil.transform.lossyScale.x/2)) return false;
+        if(transform.position.x < (soil.transform.position.x - soil.transform.lossyScale.x/2)) return false;
 
         return true;
     }
-    void OnMouseUpAsButton()
+    float GetNormalizedPos()
     {
-        isEquiped = true;
+        Vector3 bottomOfSampler = transform.position + new Vector3(0, -soilWindow.lossyScale.y/2);
+        Vector3 topOfSoil = soil.transform.position + new Vector3(0, soil.transform.lossyScale.y/2);
+        float samplePos = transform.position.y -soilWindow.lossyScale.y/2;
+        float soilPos = soil.transform.position.y + soil.transform.lossyScale.y/2;
+
+        float depth = (samplePos - soilPos);
+        // Debug.Log("Distance: " + depth);
+
+        float maxDepth = soilWindow.lossyScale.y;
+        float normalDepth = depth/maxDepth;
+        // -y is down +y is up. -1 is max normal depth
+        normalDepth = Mathf.Clamp(normalDepth, -1, 0);
+        Debug.Log("normalDepth: " + normalDepth);
+        return -normalDepth;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Vector3 bottomOffset = new Vector3(0, -soilWindow.lossyScale.y/2);
+        
+        // bottom of sample taker
+        // Gizmos.DrawSphere(transform.position + bottomOffset, 1);
+        // top of soil
+        // Gizmos.DrawSphere(soil.transform.position + new Vector3(0, soil.transform.lossyScale.y/2), 1);
     }
 
 }

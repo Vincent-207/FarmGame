@@ -20,8 +20,10 @@ public class SeedBuyable : MonoBehaviour
         }
 
         GameManager.Instance.coins -= cost;
-        GameManager.Instance.UpdateSigns();
         inventoryManager.AddSeed(seed);
+
+        
+        GameManager.Instance.UpdateSigns();
     }
 
     void Start()

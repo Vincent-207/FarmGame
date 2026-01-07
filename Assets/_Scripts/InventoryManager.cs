@@ -25,7 +25,7 @@ public class InventoryManager : MonoBehaviour
             else
             {
                 Debug.Log("YES!");
-                seedSelectable.quantity++;
+                seedSelectable.IncrementQuantity();
                 return;
             }
         }

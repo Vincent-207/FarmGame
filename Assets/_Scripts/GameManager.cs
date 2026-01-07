@@ -163,15 +163,7 @@ public class GameManager : MonoBehaviour
     }
     public void PlaceSeed(InputAction.CallbackContext obj)
     {
-        if(seeds > 0)
-        {
-            if(seedPlacer.TryPlaceSeed())
-            {
-                seeds--;
-                
-            }
-            
-        }
+        seedPlacer.TryPlaceSeed();
         UpdateSigns();
     }
     public TileObject GetTile(Vector2Int position)
@@ -196,7 +188,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            seedCounter.text = seedPlacer.selectedSeed.plantName + String.Format(" Seeds: {0} ", seedPlacer.selectedSeed.quantity);
+            seedCounter.text = seedPlacer.selectedSeed.plantName + String.Format(" Seeds: {0} ", seedPlacer.selectedSeed.GetQuantity());
             
         }
         // wheatCounter.text = String.Format("Wheat: {0}", cropCount);

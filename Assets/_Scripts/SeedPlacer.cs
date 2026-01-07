@@ -14,6 +14,7 @@ public class SeedPlacer : MonoBehaviour
     PlantManager plantManager;
     public bool TryPlaceSeed()
     {
+        Debug.Log("Trying to place...");
         // Check for whether this can place the seed. return false and abort so game manager knows and can handle it. 
         
         plantManager = PlantManager.Instance;
@@ -32,13 +33,19 @@ public class SeedPlacer : MonoBehaviour
         }
 
         // verify selected seed exists and is valid
-        if(plantManager.currentSelectedSeed == null || plantManager.currentSelectedSeed.quantity <= 0)
+        if(plantManager.currentSelectedSeed == null)
         {
+            Debug.Log("Seed not found in plant manager");
             return false;
         }
-        
-        UpdateSelectedSeed();
+        if(plantManager.currentSelectedSeed.GetQuantity() <= 0)
+        {
+            Debug.Log("Not enough quantity to plant");
+            return false;
+        }
+        Debug.Log("Placing!");
         PlaceSeed(placePos);
+        UpdateSelectedSeed();
         return true;
     }
     public void PlaceSeed(Vector2Int placePos)
@@ -51,7 +58,7 @@ public class SeedPlacer : MonoBehaviour
         GameObject inspectionPlant = Instantiate(plantPrefab);
         inspectionPlant.transform.position = gameManager.hidePlantsPos;
         placedSeed.GetComponent<FarmingPlant>().plant = inspectionPlant.GetComponent<Plant>();
-        selectedSeed.quantity--;
+        selectedSeed.DecrementQuantity();
     }
     public void UpdateSelectedSeed()
     {

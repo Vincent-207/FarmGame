@@ -35,7 +35,7 @@ public class Leaf : MonoBehaviour, ISprayable, INutritientable
     }
     public void ApplySpray(Spray spray)
     {
-        Debug.Log("Apply");
+        // Debug.Log("Apply");
         
     }
 

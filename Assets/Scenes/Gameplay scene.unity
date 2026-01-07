@@ -227,7 +227,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1304488394}
+  - {fileID: 8711087762015672659}
   m_Father: {fileID: 1037721752}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -675,11 +675,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4848150812776001745, guid: 29473860db982fe448bf403a96fb2aee, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 4848150812776001745, guid: 29473860db982fe448bf403a96fb2aee, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -270
       objectReference: {fileID: 0}
     - target: {fileID: 4848150812776001745, guid: 29473860db982fe448bf403a96fb2aee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1826,11 +1826,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4848150812776001745, guid: 29473860db982fe448bf403a96fb2aee, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 4848150812776001745, guid: 29473860db982fe448bf403a96fb2aee, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -160
       objectReference: {fileID: 0}
     - target: {fileID: 4848150812776001745, guid: 29473860db982fe448bf403a96fb2aee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2654,7 +2654,7 @@ GameObject:
   - component: {fileID: 634860372}
   - component: {fileID: 634860371}
   m_Layer: 5
-  m_Name: Plant Inspect Screen
+  m_Name: OLD Plant Inspect Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5449,7 +5449,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 662388927546346524, guid: 5c4acfc9405264e46aa0dba0286a3127, type: 3}
       propertyPath: m_Name
-      value: Carrot_ (1)
+      value: Wheat seed
       objectReference: {fileID: 0}
     - target: {fileID: 8711087762917470362, guid: 5c4acfc9405264e46aa0dba0286a3127, type: 3}
       propertyPath: m_Pivot.x
@@ -5536,11 +5536,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c4acfc9405264e46aa0dba0286a3127, type: 3}
---- !u!224 &1304488394 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8711087762917470362, guid: 5c4acfc9405264e46aa0dba0286a3127, type: 3}
-  m_PrefabInstance: {fileID: 1304488393}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1324684383
 GameObject:
   m_ObjectHideFlags: 0
@@ -5695,7 +5690,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1333136970
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8780,11 +8775,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4848150812776001745, guid: 29473860db982fe448bf403a96fb2aee, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 4848150812776001745, guid: 29473860db982fe448bf403a96fb2aee, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 4848150812776001745, guid: 29473860db982fe448bf403a96fb2aee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8867,10 +8862,10 @@ RectTransform:
   - {fileID: 8461007659303028553}
   m_Father: {fileID: 1099804474}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -50}
+  m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5228821371365750321
 GameObject:
@@ -8904,7 +8899,7 @@ GameObject:
   - component: {fileID: 788660058}
   - component: {fileID: 788660057}
   m_Layer: 5
-  m_Name: Seed
+  m_Name: Seed Buyable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9135,6 +9130,11 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!224 &8711087762015672659 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8711087762917470362, guid: 5c4acfc9405264e46aa0dba0286a3127, type: 3}
+  m_PrefabInstance: {fileID: 1304488393}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &9181082420578748299
 MonoBehaviour:
   m_ObjectHideFlags: 0
