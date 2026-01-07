@@ -109,6 +109,6 @@ MonoBehaviour:
   isOverrideable: 0
   sprites:
   - {fileID: -989907989198058783, guid: 2982d2813b5e3294d8e88e185e42e0fc, type: 3}
-  - {fileID: 6996354544559927459, guid: df378d89499794844a823ca88a298c47, type: 3}
-  - {fileID: -2704232277837123901, guid: e21235b6a685a19408e46ebe42480222, type: 3}
+  - {fileID: 21300000, guid: df378d89499794844a823ca88a298c47, type: 3}
+  - {fileID: 21300000, guid: e21235b6a685a19408e46ebe42480222, type: 3}
   plant: {fileID: 2831632399168739122, guid: 3c3c88963799e00419feff48b491e1b4, type: 3}

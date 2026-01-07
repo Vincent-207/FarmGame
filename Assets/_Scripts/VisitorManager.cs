@@ -10,13 +10,13 @@ public class VisitorManager : MonoBehaviour
     public void updateTime(float newTime)
     {
         this.time = newTime;
-        Debug.Log("Updating time!");
+        // Debug.Log("Updating time!");
         if(IsNewHour(newTime))
         {
-            Debug.Log("new hour!");
+            // Debug.Log("new hour!");
             if(GetHour(time) == 1)
             {
-                Debug.Log("Is hour 1, showing visitor");
+                // Debug.Log("Is hour 1, showing visitor");
                 visitorScreen.SetActive(true);
             }
         }

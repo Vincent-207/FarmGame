@@ -10,6 +10,7 @@ public class FarmingPlant : TileObject, IDayTickable, IHourTickable
     [SerializeField]
     public Plant plant;
     int maxGrowthStage, currentGrowthStage;
+    public CropType cropType;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -24,5 +25,16 @@ public class FarmingPlant : TileObject, IDayTickable, IHourTickable
     {
         Debug.Log("Hour!");
         plant.GenerateDiseases();
+    }
+
+    public bool IsHarvestable()
+    {
+        if(currentGrowthStage >= maxGrowthStage)
+        {
+            Debug.Log("IsHarvestable");
+            return true;
+        }
+        
+        return false;
     }
 }

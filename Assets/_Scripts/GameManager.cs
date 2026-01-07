@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
+using Sherbert.Framework.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
@@ -24,6 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int gridWidth, gridHeight;
     [SerializeField] Vector2Int GridPos;
     TileObject[,] grid;
+    public SerializableDictionary<CropType, int> harvestedCrops = new();
     void Update()
     {
         int newIntTime = (int) ((time + Time.deltaTime)/60);
@@ -76,9 +80,9 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("Couldn't find tile");
             return;
-        }
+        } 
 
-        Plant seed = tile.GetComponent<Plant>();
+        FarmingPlant seed = tile.GetComponent<FarmingPlant>();
         if(seed == null)
         {
             Debug.LogWarning("Couldn't find seed");
@@ -94,10 +98,17 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Harvested!");
             Destroy(grid[gridPos.x, gridPos.y].gameObject);
-            cropCount++;
+            IncrementCropCount(seed.cropType);
             UpdateSigns();
         }
 
+    }
+
+    void IncrementCropCount(CropType id)
+    {
+        int currrentCount;
+        harvestedCrops.TryGetValue(id, out currrentCount);
+        harvestedCrops[id] = currrentCount + 1;
     }
     void OnEnable()
     {
@@ -229,4 +240,10 @@ public interface IDayTickable
 public interface IHourTickable
 {
     public void DoHourTick();
+}
+
+public enum CropType
+{
+    Wheat,
+    Carrot
 }
