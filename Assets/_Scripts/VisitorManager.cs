@@ -6,14 +6,19 @@ public class VisitorManager : MonoBehaviour
     float time;
     [SerializeField]
     GameObject visitorScreen;
-    public void updateTime(float newTIme)
+    bool hourHappened;
+    public void updateTime(float newTime)
     {
-        this.time = newTIme;
+        this.time = newTime;
         Debug.Log("Updating time!");
-        if(IsNewHour(newTIme))
+        if(IsNewHour(newTime))
         {
             Debug.Log("new hour!");
-            visitorScreen.SetActive(true);
+            if(GetHour(time) == 1)
+            {
+                Debug.Log("Is hour 1, showing visitor");
+                visitorScreen.SetActive(true);
+            }
         }
 
     }
@@ -22,7 +27,22 @@ public class VisitorManager : MonoBehaviour
     {
         int hour = (int) time /60;
         int minutes = (int) time - hour * 60;
-        return minutes == 0 ? true : false;
+        bool isNewHour = minutes == 0 && hour != 0;
+        if(isNewHour)
+        {
+            if(hourHappened) return false;
+            else
+            {
+                hourHappened = true;
+                return true;
+            }
+        }
+        else
+        {
+            hourHappened = false;
+            return false;
+            
+        }
     }
 
     int GetHour(float time)

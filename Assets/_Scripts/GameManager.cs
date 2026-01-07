@@ -28,17 +28,17 @@ public class GameManager : MonoBehaviour
     {
         int newIntTime = (int) ((time + Time.deltaTime)/60);
         int IntTime = (int) (time/60);
-        bool isNewHour = (newIntTime - IntTime) > 0;
-        String debugMsg = String.Format("Time: {0}, New time: {0}, Int Time: {0}, Int New Time: {0}", time, time + Time.deltaTime, IntTime, newIntTime);
+        bool isNewHour = (newIntTime - IntTime) > 0 && IntTime != 0;
+        // String debugMsg = String.Format("Time: {0}, New time: {0}, Int Time: {0}, Int New Time: {0}", time, time + Time.deltaTime, IntTime, newIntTime);
 
         time += Time.deltaTime;
         
         if(isNewHour)
         {
-            Debug.Log(debugMsg);
+            /* Debug.Log(debugMsg);
             Debug.Log("Int time: " +  IntTime.ToString());
             Debug.Log("new hour!");
-            Debug.Break();
+            Debug.Break(); */
             EndHour();
         }
         updateClock();
@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     void updateClock()
     {
         clockTextbox.text = FormatTime(time);
+        VisitorManager.Instance.updateTime(time);
     }
     public void EndHour()
     {
