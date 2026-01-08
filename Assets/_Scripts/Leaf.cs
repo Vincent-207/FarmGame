@@ -15,11 +15,13 @@ public class Leaf : MonoBehaviour, ISprayable, INutritientable
     public GameObject[] diseasePrefabs;
     public void Cure(DiseaseType cureDiseaseType)
     {
+        plant.farmingPlant.Cure(cureDiseaseType);
         foreach(Disease disease in diseases)
         {
             if(disease != null && disease.diseaseType == cureDiseaseType)
             {
                 Destroy(disease.gameObject);
+
             }
         }
         diseases.RemoveAll(item => item == null);
@@ -34,7 +36,9 @@ public class Leaf : MonoBehaviour, ISprayable, INutritientable
 
     public void ApplyNutrients(Spray spray)
     {
-        Cure(diseaseType);
+        UpdateDiseases();
+        Cure(spray.diseaseCureType);
+        UpdateDiseases();
     }
     public void ApplySpray(Spray spray)
     {
@@ -42,12 +46,22 @@ public class Leaf : MonoBehaviour, ISprayable, INutritientable
         
     }
 
-    public void AddDisease()
+    void UpdateDiseases()
     {
-        Transform diseaseTransform = Instantiate(PlantManager.Instance.diseasePrefabs[0], Vector3.zero, Quaternion.identity, transform).transform;
+        diseases = new List<Disease>();
+        transform.GetComponentsInChildren<Disease>(true, diseases);
+    }
+
+    public void AddDisease(int diseaseIndex)
+    {
+        Transform diseaseTransform = Instantiate(PlantManager.Instance.diseasePrefabs[diseaseIndex], Vector3.zero, Quaternion.identity, transform).transform;
         diseaseTransform.localScale = Vector3.one;
         diseaseTransform.localPosition = Vector3.zero;
         Disease newDisease = diseaseTransform.GetComponent<Disease>();
         diseases.Add(newDisease);
+
+        plant.farmingPlant.AddDisease(diseaseIndex);
     }
+
+    
 }

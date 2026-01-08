@@ -4,6 +4,7 @@ using UnityEngine;
 public class Disease : MonoBehaviour
 {
     public String intenalName;
+    public float strength;
     public DiseaseType diseaseType;
     public Disease(String name, DiseaseType diseaseType)
     {

@@ -4221,6 +4221,7 @@ MonoBehaviour:
   growthStates: []
   leaves: []
   soil: {fileID: 0}
+  farmingPlant: {fileID: 0}
 --- !u!212 &976051112
 SpriteRenderer:
   serializedVersion: 2
@@ -6663,6 +6664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   visitorScreen: {fileID: 1333136969}
+  isVisitorHere: 0
 --- !u!1 &1657209153
 GameObject:
   m_ObjectHideFlags: 0
@@ -7399,6 +7401,37 @@ MonoBehaviour:
   showPos: {x: 200, y: 200, z: 0}
   hidePos: {x: -200, y: -200, z: 0}
   normalPos: {x: 0, y: 0, z: 0}
+--- !u!1 &1853696195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1853696196}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1853696196
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853696195}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.16241, y: 3.04467, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1854570222
 GameObject:
   m_ObjectHideFlags: 0
@@ -7784,6 +7817,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   diseasePrefabs:
   - {fileID: -7517414843127794880, guid: 82382aaa4767aed47b13038c0e321282, type: 3}
+  - {fileID: -7517414843127794880, guid: e555a47ee38ca8c44b23b4b3a252a053, type: 3}
+  - {fileID: -7517414843127794880, guid: faad54c86d371464cb55daac515ed53f, type: 3}
+  diseaseOverlays:
+  - {fileID: 8170129327971505287, guid: 7f01b9754edfa294495723ef1335443e, type: 3}
+  - {fileID: 8170129327971505287, guid: ee5113b394db43245a0e3800506c0412, type: 3}
+  - {fileID: 8170129327971505287, guid: 5059d7c76b32ba94e948b8fc7f368a55, type: 3}
   currentPlant: {fileID: 0}
   currentSelectedSeed: {fileID: 0}
   selectableSeeds: []
@@ -9480,3 +9519,4 @@ SceneRoots:
   - {fileID: 1847534723}
   - {fileID: 157139109}
   - {fileID: 1359921531}
+  - {fileID: 1853696196}

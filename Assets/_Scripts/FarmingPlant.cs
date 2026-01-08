@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class FarmingPlant : TileObject, IDayTickable, IHourTickable
     public Plant plant;
     int maxGrowthStage, currentGrowthStage;
     public CropType cropType;
+    List<FarmingPlantDisease> farmingPlantDiseases;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -24,13 +26,29 @@ public class FarmingPlant : TileObject, IDayTickable, IHourTickable
     public void DoHourTick()
     {
         Debug.Log("Hour!");
+        plant.farmingPlant = this;
         plant.GenerateDiseases();
-        UpdateFarmingPlantDiseases();
-    }
-
-    void UpdateFarmingPlantDiseases()
-    {
         
+    }
+    public void Cure(DiseaseType cureDiseaseType)
+    {
+        UpdateDiseases();
+        foreach(FarmingPlantDisease disease in farmingPlantDiseases)
+        {
+            if(disease.diseaseType == cureDiseaseType)
+            {
+                Destroy(disease.gameObject);
+            }
+        }
+    }
+    void UpdateDiseases()
+    {
+        farmingPlantDiseases = new List<FarmingPlantDisease>();
+        GetComponentsInChildren<FarmingPlantDisease>(true, farmingPlantDiseases);
+    }
+    public void AddDisease(int index)
+    {
+        Instantiate(PlantManager.Instance.diseaseOverlays[index], transform);
     }
 
     public bool IsHarvestable()
