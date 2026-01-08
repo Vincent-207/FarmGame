@@ -214,11 +214,11 @@ Transform:
   m_GameObject: {fileID: 155181319}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1001, y: 100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 392833322}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &208978876
 GameObject:
@@ -448,7 +448,6 @@ Transform:
   m_Children:
   - {fileID: 1034533441}
   - {fileID: 208978880}
-  - {fileID: 155181321}
   - {fileID: 412425992}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -638,9 +637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoilSample
   drop: {fileID: 1266641184}
-  isEquipped: 0
   maxScale: 10
-  isEquiped: 0
   soil: {fileID: 212142507}
   sample: {fileID: 577762968}
   soilWindow: {fileID: 1740176276}
@@ -1332,7 +1329,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EquipableItem
   drop: {fileID: 473536452}
-  isEquipped: 0
 --- !u!212 &1223277329
 SpriteRenderer:
   serializedVersion: 2
@@ -1910,3 +1906,4 @@ SceneRoots:
   - {fileID: 6175112976004397660}
   - {fileID: 590179595}
   - {fileID: 1223277330}
+  - {fileID: 155181321}

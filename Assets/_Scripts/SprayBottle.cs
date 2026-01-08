@@ -85,13 +85,13 @@ public class SprayBottle : MonoBehaviour
         }
 
 
-        // rotate to look at it
+        // rotate to face at it
         Vector3 toLeaf = (closestLeaf.transform.position - transform.position).normalized;
         float lookAngle = Mathf.Atan2(toLeaf.y, toLeaf.x) * Mathf.Rad2Deg;
         Quaternion rotation =  Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, lookAngle - 180), rotationSpeed * Time.deltaTime);
         transform.rotation = rotation;
+
         // mirror if neccessary, so spigot is always facing the leaf
-        
         Vector3 scale = transform.localScale;
         // Mathf.Abs(scale.x)
         scale.y = toLeaf.x < 0 ? 1 : -1;
@@ -140,6 +140,7 @@ public class SprayBottle : MonoBehaviour
         
     }
 }
+
 [Serializable]
 public class Spray
 {

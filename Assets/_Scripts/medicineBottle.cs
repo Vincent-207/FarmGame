@@ -77,12 +77,12 @@ public class medicineBottle : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Cure!");
+        /* Debug.Log("Cure!");
         // TODO: check if spray hit right thing;
         Leaf leaf = collider.GetComponent<Leaf>();
         if(leaf != null)
         {
             leaf.Cure();
-        }
+        } */
     }
 }

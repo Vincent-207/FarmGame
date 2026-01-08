@@ -29,6 +29,7 @@ public class PlantInspector : MonoBehaviour
         inspectScreen.transform.position = hidePos;
         if(plant) plant.transform.position = hidePos;
         Camera.main.transform.position = normalPos;
+        DisableRigidbodies();
     }
     public void TryInspect(InputAction.CallbackContext obj)
     {
@@ -36,10 +37,12 @@ public class PlantInspector : MonoBehaviour
         Vector2Int gridPos = gameManager.GetMouseGridPos();
         if(gameManager.IsValidTile(gridPos))
         {
+            Debug.Log("Doing inspect!");
             TileObject tile = gameManager.GetTile(gridPos);
             plant = tile.GetComponent<FarmingPlant>().plant;
             PlantManager.Instance.currentPlant = plant;
             ShowInspectScreen(plant);
+            EnableRigidbodies();
             inspect.Invoke();
         }
     }
@@ -58,5 +61,23 @@ public class PlantInspector : MonoBehaviour
     void Start()
     {
         normalPos = Camera.main.transform.position;
+        DisableRigidbodies();
+    }
+    void EnableRigidbodies()
+    {
+        SetAbleRigidbodies(true);
+    }
+    void DisableRigidbodies()
+    {
+        SetAbleRigidbodies(false);
+    }
+
+    void SetAbleRigidbodies(bool value)
+    {
+        Rigidbody2D[] rigidbodies = inspectScreen.GetComponentsInChildren<Rigidbody2D>(true);
+        foreach(Rigidbody2D rigidbody2D in rigidbodies)
+        {
+            rigidbody2D.gameObject.SetActive(value);
+        }
     }
 }

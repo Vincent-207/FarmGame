@@ -13,9 +13,16 @@ public class Leaf : MonoBehaviour, ISprayable, INutritientable
     SpriteRenderer spriteRenderer;
     public List<Disease> diseases;
     public GameObject[] diseasePrefabs;
-    public void Cure()
+    public void Cure(DiseaseType cureDiseaseType)
     {
-        spriteRenderer.sprite = icons[0];
+        foreach(Disease disease in diseases)
+        {
+            if(disease != null && disease.diseaseType == cureDiseaseType)
+            {
+                Destroy(disease.gameObject);
+            }
+        }
+        diseases.RemoveAll(item => item == null);
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,11 +34,7 @@ public class Leaf : MonoBehaviour, ISprayable, INutritientable
 
     public void ApplyNutrients(Spray spray)
     {
-        if(spray.diseaseCureType == diseaseType)
-        {
-            Cure();
-
-        }
+        Cure(diseaseType);
     }
     public void ApplySpray(Spray spray)
     {

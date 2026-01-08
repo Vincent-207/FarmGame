@@ -72,8 +72,8 @@ public class Plant : MonoBehaviour, ISprayable
         foreach(Leaf leaf in leaves)
         {
             leaf.ApplyNutrients(spray);
-            soil.ApplyNutrients(spray);
         }
+        soil.ApplyNutrients(spray);
 
         UpdateValues();
     }
