@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class PlantManager : MonoBehaviour
 {
     public Disease[] diseasePrefabs;
+    public GameObject[] diseaseOverlays;
     public static PlantManager Instance {get; private set;}
     // current selected plant for inspection
     public Plant currentPlant;

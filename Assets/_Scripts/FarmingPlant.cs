@@ -25,6 +25,12 @@ public class FarmingPlant : TileObject, IDayTickable, IHourTickable
     {
         Debug.Log("Hour!");
         plant.GenerateDiseases();
+        UpdateFarmingPlantDiseases();
+    }
+
+    void UpdateFarmingPlantDiseases()
+    {
+        
     }
 
     public bool IsHarvestable()

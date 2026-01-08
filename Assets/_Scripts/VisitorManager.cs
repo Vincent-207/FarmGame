@@ -7,6 +7,7 @@ public class VisitorManager : MonoBehaviour
     [SerializeField]
     GameObject visitorScreen;
     bool hourHappened;
+    public bool isVisitorHere;
     public void updateTime(float newTime)
     {
         this.time = newTime;
@@ -17,7 +18,7 @@ public class VisitorManager : MonoBehaviour
             if(GetHour(time) == 1)
             {
                 // Debug.Log("Is hour 1, showing visitor");
-                visitorScreen.SetActive(true);
+                isVisitorHere = true;
             }
         }
 
@@ -66,5 +67,18 @@ public class VisitorManager : MonoBehaviour
         { 
             Instance = this; 
         } 
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(isVisitorHere)
+        {
+            visitorScreen.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        visitorScreen.SetActive(false);
     }
 }
