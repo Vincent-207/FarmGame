@@ -21,6 +21,7 @@ public class Plant : MonoBehaviour, ISprayable
     public Leaf[] leaves;
     public Soil soil;
     public FarmingPlant farmingPlant;
+    public double growthValue;
     // public SerializableDictionary<DiseaseType, DiseaseInfection> diseaseInfections = new();
 
 
@@ -44,9 +45,20 @@ public class Plant : MonoBehaviour, ISprayable
     {
         
         UpdateValues();
-
+        doGrowth();
+        GenerateDiseases();
     }
-
+    void doGrowth()
+    {
+        double leavesDiseaseValue = 0;
+        foreach(Leaf leaf in leaves)
+        {
+            leavesDiseaseValue += leaf.getDiseaseValue();
+        }
+        leavesDiseaseValue /= leaves.Length;
+        growthValue += 1 - (leavesDiseaseValue);
+    }
+    
     public void GenerateDiseases()
     {
         Debug.Log("Gening!");

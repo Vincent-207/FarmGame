@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int gridWidth, gridHeight;
     [SerializeField] Vector2Int GridPos;
     TileObject[,] grid;
-    public SerializableDictionary<CropType, int> harvestedCrops = new();
+    public SerializableDictionary<CropType, double> harvestedCrops = new();
     void Update()
     {
         int newIntTime = (int) ((time + Time.deltaTime)/60);
@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
             Debug.Break(); */
             EndHour();
         }
+
         updateClock();
     }
     void updateClock()
@@ -56,7 +57,6 @@ public class GameManager : MonoBehaviour
     {
         updateClock();
         VisitorManager.Instance.updateTime(time);
-        hourTick.Invoke();
         
 
     }
@@ -97,18 +97,22 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Harvested!");
+            Plant harvestedPlant = tile.GetComponent<FarmingPlant>().plant;
             Destroy(grid[gridPos.x, gridPos.y].gameObject);
-            IncrementCropCount(seed.cropType);
+            IncreaseCropCount(seed.cropType, harvestedPlant.growthValue);
             UpdateSigns();
         }
 
     }
-
+    void IncreaseCropCount(CropType id, double increaseAmount)
+    {
+        double currentAmount = 0;
+        harvestedCrops.TryGetValue(id, out currentAmount);
+        harvestedCrops[id] = currentAmount + increaseAmount;
+    }
     void IncrementCropCount(CropType id)
     {
-        int currrentCount;
-        harvestedCrops.TryGetValue(id, out currrentCount);
-        harvestedCrops[id] = currrentCount + 1;
+        IncreaseCropCount(id, 1);
     }
     void OnEnable()
     {
@@ -136,6 +140,7 @@ public class GameManager : MonoBehaviour
     public void EndDay()
     {
         dayTick.Invoke();
+        hourTick.Invoke();
     }
     public bool IsValidTile(Vector2Int gridPos)
     {

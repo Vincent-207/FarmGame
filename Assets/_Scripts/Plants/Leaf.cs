@@ -13,6 +13,17 @@ public class Leaf : MonoBehaviour, ISprayable, INutritientable
     SpriteRenderer spriteRenderer;
     public List<Disease> diseases;
     public GameObject[] diseasePrefabs;
+    public double getDiseaseValue()
+    {
+        double output = 0;
+        UpdateDiseases();
+        foreach(Disease disease in diseases)
+        {
+            output += disease.strength;
+        }
+
+        return output;
+    }
     public void Cure(DiseaseType cureDiseaseType)
     {
         plant.farmingPlant.Cure(cureDiseaseType);

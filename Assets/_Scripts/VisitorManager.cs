@@ -8,6 +8,8 @@ public class VisitorManager : MonoBehaviour
     GameObject visitorScreen;
     bool hourHappened;
     public bool isVisitorHere;
+    [SerializeField] Color onColor, offColor;
+    public SpriteRenderer visitorLight;
     public void updateTime(float newTime)
     {
         this.time = newTime;

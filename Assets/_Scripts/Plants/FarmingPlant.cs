@@ -13,10 +13,12 @@ public class FarmingPlant : TileObject, IDayTickable, IHourTickable
     int maxGrowthStage, currentGrowthStage;
     public CropType cropType;
     List<FarmingPlantDisease> farmingPlantDiseases;
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         maxGrowthStage  = sprites.Length - 1;
+        plant.farmingPlant = this;
     }
     public void DoDayTick()
     {
@@ -27,8 +29,13 @@ public class FarmingPlant : TileObject, IDayTickable, IHourTickable
     {
         Debug.Log("Hour!");
         plant.farmingPlant = this;
-        plant.GenerateDiseases();
+        if(currentGrowthStage == maxGrowthStage)
+        {
+            Debug.Log("Plant fully grown, not making more sick.");
+            return;
+        }
         
+        plant.DoTick();
     }
     public void Cure(DiseaseType cureDiseaseType)
     {
@@ -50,7 +57,6 @@ public class FarmingPlant : TileObject, IDayTickable, IHourTickable
     {
         Instantiate(PlantManager.Instance.diseaseOverlays[index], transform);
     }
-
     public bool IsHarvestable()
     {
         if(currentGrowthStage >= maxGrowthStage)

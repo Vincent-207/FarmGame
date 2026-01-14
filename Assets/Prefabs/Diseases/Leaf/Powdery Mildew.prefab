@@ -105,4 +105,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Disease
   intenalName: Powdery Mildew
+  strength: 1
   diseaseType: 1

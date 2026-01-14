@@ -29,11 +29,10 @@ public class Shop : MonoBehaviour
         gameManager.UpdateSigns();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void OnEnable()
     {
-        
+        Debug.Log("Enabled!");
     }
-
     // Update is called once per frame
     void Update()
     {

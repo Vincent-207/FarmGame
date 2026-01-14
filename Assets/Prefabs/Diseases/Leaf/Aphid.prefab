@@ -105,5 +105,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Disease
   intenalName: Aphid
-  strength: 0
-  diseaseType: 1
+  strength: 1
+  diseaseType: 3

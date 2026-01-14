@@ -105,5 +105,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Disease
   intenalName: Bacteria
-  strength: 0
+  strength: 1
   diseaseType: 2

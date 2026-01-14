@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using NUnit.Framework.Constraints;
 using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -60,6 +61,7 @@ public class SprayBottle : MonoBehaviour
         RB.MovePosition(mouseWorldPos);
         
         plant = PlantManager.Instance.currentPlant;
+        closestLeaf = null;
         LookAtClosestLeaf();
         
     }
@@ -67,6 +69,7 @@ public class SprayBottle : MonoBehaviour
     void LookAtClosestLeaf()
     {
         // update closest leaf
+        
         foreach(Leaf leaf in plant.leaves)
         {
             if(closestLeaf == null)
@@ -84,9 +87,12 @@ public class SprayBottle : MonoBehaviour
             }
         }
 
-
+        
         // rotate to face at it
-        Vector3 toLeaf = (closestLeaf.transform.position - transform.position).normalized;
+        
+        Vector3 toLeaf = (closestLeaf.transform.position - transform.position);
+        Debug.DrawRay(transform.position, toLeaf);
+        toLeaf.Normalize();
         float lookAngle = Mathf.Atan2(toLeaf.y, toLeaf.x) * Mathf.Rad2Deg;
         Quaternion rotation =  Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, lookAngle - 180), rotationSpeed * Time.deltaTime);
         transform.rotation = rotation;
