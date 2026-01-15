@@ -1,17 +1,19 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerShooting : MonoBehaviour
 {
-    GameObject bulletPrefab;
-    int currentAmmo, magCapacity;
-    InputActionReference shoot, reload;
-    TMP_Text ammoCounter;
-    float reloadDuration, spawnDistance;
-    Coroutine reloadRoutine;
+    public Transform bulletParent;
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] int currentAmmo, magCapacity;
+    [SerializeField] InputActionReference shoot, reload;
+    [SerializeField] TMP_Text ammoCounter;
+    [SerializeField] float reloadDuration, spawnDistance;
+    [SerializeField] bool isReloading;
 
     void OnEnable()
     {
@@ -27,13 +29,19 @@ public class PlayerShooting : MonoBehaviour
 
     void TryShoot(InputAction.CallbackContext context)
     {
-        
+
         if(currentAmmo <= 0)
         {
+            Debug.Log("Can't shoot, out of ammo. Starting reload.");
             TryStartReload();
             return;
         }
-        else
+        else if(isReloading)
+        {
+            
+            Debug.Log("Can't shoot, currently reloading.");
+        }
+        else 
         {
             Shoot();
         }
@@ -48,7 +56,7 @@ public class PlayerShooting : MonoBehaviour
         Vector3 spawnPos = (toMouse * spawnDistance) + transform.position;
         spawnPos.z = 0;
         float rot_z = Mathf.Atan2(toMouse.y, toMouse.x) * Mathf.Rad2Deg;
-        GameObject shotBullet = Instantiate(bulletPrefab, spawnPos, Quaternion.Euler(0f, 0f, rot_z - 90));
+        GameObject shotBullet = Instantiate(bulletPrefab, spawnPos, Quaternion.Euler(0f, 0f, rot_z - 90), bulletParent);
 
         currentAmmo--;
         UpdateAmmoCounter();
@@ -62,9 +70,10 @@ public class PlayerShooting : MonoBehaviour
     void TryStartReload()
     {
         
-        if(reloadRoutine == null)
+        if(isReloading == false && currentAmmo < magCapacity)
         {
-            reloadRoutine = StartCoroutine(ReloadRoutine());
+            Debug.Log("Reloading!");
+            StartCoroutine(Reload());
             
         }
         else
@@ -74,22 +83,24 @@ public class PlayerShooting : MonoBehaviour
 
         
     }
-    IEnumerator ReloadRoutine()
+    IEnumerator Reload()
     {
         float reloadTime = reloadDuration;
-
+        isReloading = true;
         while(reloadTime > 0)
         {
+            ammoCounter.text = "Reloading";
             reloadTime -= Time.deltaTime;
             yield return null;
         }
 
         currentAmmo = magCapacity;
         UpdateAmmoCounter();
+        isReloading = false;
     }
 
     void UpdateAmmoCounter()
     {
-        ammoCounter.text = String.Format("{0} / {0}", currentAmmo, magCapacity);
+        ammoCounter.text = String.Format("{0} / {1}", currentAmmo, magCapacity);
     }
 }

@@ -67,10 +67,10 @@ public class RatLogic : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision2D)
     {
-        Debug.Log("Collision!");
+        // Debug.Log("Collision!");
         if(collision2D.collider.CompareTag("Projectile"))
         {
-            Debug.Log("Hit!");
+            // Debug.Log("Hit!");
             IProjectile projectile = collision2D.collider.GetComponent<IProjectile>();
             health -= projectile.GetDamage();
             projectile.Destroy();
