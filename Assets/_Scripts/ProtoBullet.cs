@@ -1,10 +1,12 @@
 using UnityEngine;
 
-public class ProtoBullet : MonoBehaviour
+public class ProtoBullet : MonoBehaviour, IProjectile
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField]
-    float moveSpeed = 1f;
+    float moveSpeed, damage;
+    [SerializeField]
+    Rigidbody2D rb2D;
     void Start()
     {
         
@@ -12,9 +14,24 @@ public class ProtoBullet : MonoBehaviour
 
     void Update()
     {
-        Vector3 newPosition = (transform.up * moveSpeed * Time.deltaTime) + transform.position;
-        transform.position = newPosition;
+        rb2D.linearVelocity = transform.up * moveSpeed;
 
     }
 
+    public float GetDamage()
+    {
+        return damage;
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
+    }
+
+}
+
+public interface IProjectile
+{
+    public float GetDamage();
+    public void Destroy();
 }

@@ -1,103 +1,105 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody2D))]
 public class RatLogic : MonoBehaviour
 {
-    public float moveSpeed, detectionRadius, thresholdDistance, randomPointDuration, randomPointTime, rotationSpeed;
-    bool isRunning = false;
-    Vector3 lastSeenScare;
-    Vector3 moveDir;
-    Coroutine wanderRoutine, runRoutine;
+    public float moveSpeed;
     public Color color;
-    public bool debugBool;
-    Vector2 targetDirection;
     Rigidbody2D _rigidbody2D;
-
+    public float health;
+    
+    [Header("Attack settings")]
+    [SerializeField]
+    Barricade barricade;
+    public float attackDamage, attackCooldown, currentAttackCooldown, attackRange;
+    
+    // public bool isNextToBarricade;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        randomPointTime = randomPointDuration;
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        // targetRotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
-        targetDirection = transform.up;
-        StartCoroutine(WanderTest());
+        currentAttackCooldown = attackCooldown;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        // DoDetection();
-    }
-
-    void DoDetection()
-    {
-        RaycastHit2D raycastHit2D = Physics2D.CircleCast(transform.position, detectionRadius, transform.up);
-        
-        if(raycastHit2D.collider != null)
+        currentAttackCooldown -= Time.fixedDeltaTime;
+        if(isNextToBarricade())
         {
-            isRunning = true;
-            runRoutine ??= StartCoroutine(Run());
+            if(currentAttackCooldown <= 0)
+            {
+                Attack();
+                currentAttackCooldown = attackCooldown;
+            }
+    
         }
         else
         {
-            // Compound assignment?? If wander rountine is null, sets it to new routine. 
-            isRunning = false;
-            wanderRoutine ??= StartCoroutine(Wander());
+            Move();
             
         }
         
-
-    }
-    IEnumerator Run()
-    {
-        while(isRunning)
-        {
-            moveDir = -lastSeenScare;
-            Move();
-            yield return null;
-        }
-    }
-    IEnumerator Wander()
-    {
-        while(isRunning == false)
-        {
-            moveDir =  Random.insideUnitCircle;
-            Move();
-            yield return null;
-        }
     }
 
-    IEnumerator WanderTest()
+    void Attack()
     {
-        while(debugBool)
+        barricade.DoDamage(attackDamage);
+    }
+    bool isNextToBarricade()
+    {
+        RaycastHit2D[] raycastHits = Physics2D.RaycastAll(transform.position, transform.up, attackRange);
+        foreach(RaycastHit2D raycastHit in raycastHits)
         {
-            moveDir =  Vector3.right;
-            Move();
-            randomPointTime -= Time.deltaTime;
-            if(randomPointTime <= 0)
+            if(raycastHit.collider.CompareTag("Barricade"))
             {
-                randomPointTime = randomPointDuration;
-                float angleChange = Random.Range(-90f, 90f);
-                targetDirection = new Vector2(Random.Range(0f, 1f), Random.Range(0f, 1f)).normalized;
+                barricade = raycastHit.collider.GetComponent<Barricade>();
+                return true;
             }
-            yield return null;
         }
+        return false;
+    }
+
+    void OnCollisionEnter2D(Collision2D collision2D)
+    {
+        Debug.Log("Collision!");
+        if(collision2D.collider.CompareTag("Projectile"))
+        {
+            Debug.Log("Hit!");
+            IProjectile projectile = collision2D.collider.GetComponent<IProjectile>();
+            health -= projectile.GetDamage();
+            projectile.Destroy();
+
+            if(health <= 0)
+            {
+                Die();
+            }
+        }
+    }
+    
+    void Die()
+    {
+        Destroy(gameObject);
+    }
+    
+    void TurnTowards()
+    {
+        
     }
     void Move()
     {
-        // transform.position = transform.position + (transform.up * moveSpeed * Time.deltaTime);
-        // Quaternion rotation = Quaternion.RotateTowards(transform.rotation, LookAt2D(look), rotationSpeed * Time.deltaTime);
-        // _rigidbody2D.SetRotation(rotation);
-        _rigidbody2D.linearVelocity = (transform.up * moveSpeed * Time.deltaTime);
+        _rigidbody2D.linearVelocity = transform.up * moveSpeed * Time.fixedDeltaTime;
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = color;
-        Gizmos.DrawSphere(transform.position, detectionRadius);
+        // Gizmos.DrawSphere(transform.position, detectionRadius);
     }
 
     static Quaternion LookAt2D(Transform target, Transform myTransform)
