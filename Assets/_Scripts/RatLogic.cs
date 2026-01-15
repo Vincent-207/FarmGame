@@ -9,6 +9,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody2D))]
 public class RatLogic : MonoBehaviour
 {
+    public LayerMask layerMask;
     public float moveSpeed;
     public Color color;
     Rigidbody2D _rigidbody2D;
@@ -53,12 +54,14 @@ public class RatLogic : MonoBehaviour
     }
     bool isNextToBarricade()
     {
-        RaycastHit2D[] raycastHits = Physics2D.RaycastAll(transform.position, transform.up, attackRange);
+        
+        RaycastHit2D[] raycastHits = Physics2D.RaycastAll(transform.position, transform.up, attackRange, layerMask);
         foreach(RaycastHit2D raycastHit in raycastHits)
         {
             if(raycastHit.collider.CompareTag("Barricade"))
             {
                 barricade = raycastHit.collider.GetComponent<Barricade>();
+                
                 return true;
             }
         }
