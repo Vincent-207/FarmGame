@@ -1,4 +1,5 @@
 
+using System.Net.NetworkInformation;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -21,6 +22,7 @@ public class SeedPlacer : MonoBehaviour
         gameManager = GameManager.Instance;
         Vector2Int placePos = gameManager.GetMouseGridPos();
         TileObject previousTile = gameManager.GetTile(placePos);
+        Debug.Log("Place pos (local): " + placePos);
         if(gameManager.IsInBounds(placePos) == false)
         {
             Debug.LogWarning("Tile is out of bounds");
@@ -48,12 +50,13 @@ public class SeedPlacer : MonoBehaviour
         UpdateSelectedSeed();
         return true;
     }
-    public void PlaceSeed(Vector2Int placePos)
+    public void PlaceSeed(Vector2Int gridPlacePos)
     {
         // TODO make dependent on grid position;
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint( Mouse.current.position.ReadValue());
-        TileObject placedSeed = Instantiate(seedPrefab,(Vector2) placePos, Quaternion.identity).GetComponent<TileObject>();
-        GameManager.Instance.AddTile(placedSeed, placePos);
+        Vector2 placeWorldPos = GameManager.Instance.GetMouseWorldPos();
+        TileObject placedSeed = Instantiate(seedPrefab,(Vector2) placeWorldPos, Quaternion.identity).GetComponent<TileObject>();
+        GameManager.Instance.AddTile(placedSeed, gridPlacePos);
         
         GameObject inspectionPlant = Instantiate(plantPrefab);
         inspectionPlant.transform.position = gameManager.hidePlantsPos;

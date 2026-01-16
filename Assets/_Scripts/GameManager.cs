@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     GameObject visitorScreen;
     [Header("Grid settings")]
     [SerializeField] int gridWidth, gridHeight;
-    [SerializeField] Vector2Int GridPos;
+    [SerializeField] Vector2 GridPos;
     TileObject[,] grid;
     public SerializableDictionary<CropType, double> harvestedCrops = new();
     void Update()
@@ -63,18 +63,20 @@ public class GameManager : MonoBehaviour
     public Vector2Int GetMouseGridPos()
     {
        
-        Vector2Int localMousePosition = GetMouseWorldPos() - GridPos;
-        return localMousePosition;
+        Vector2 localMousePosition =  GetMouseWorldPos() - GridPos;
+        Vector2Int intMousePos = new Vector2Int((int) localMousePosition.x, (int) localMousePosition.y );
+        return intMousePos;
 
     }
     public Vector2Int GetMouseWorldPos()
     {
         Vector2 worldMousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        
         return Vector2Int.RoundToInt(worldMousePosition);
     }
     void Harvest(InputAction.CallbackContext obj)
     {
-        Vector2Int gridPos = GridHelper.GetCurrentMouseGridPos();
+        Vector2Int gridPos = GetMouseGridPos();
         TileObject tile = GetTile(gridPos);
         if(tile == null)
         {
