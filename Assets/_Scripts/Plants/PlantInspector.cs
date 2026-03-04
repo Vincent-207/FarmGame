@@ -1,7 +1,8 @@
-using Microsoft.Unity.VisualStudio.Editor;
+
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlantInspector : MonoBehaviour
 {

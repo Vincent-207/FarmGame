@@ -1,11 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.Build;
+
 using UnityEngine;
-using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody2D))]
 public class RatLogic : MonoBehaviour
 {
