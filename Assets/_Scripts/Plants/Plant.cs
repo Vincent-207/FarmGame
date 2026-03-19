@@ -67,6 +67,12 @@ public class Plant : MonoBehaviour, ISprayable
         {
             Debug.Log("is null :{");
         }
+
+        float chance = UnityEngine.Random.Range(0f, 1f);
+        if(chance > 0.66f)
+        {
+            return;
+        }
         int diseaseCount = PlantManager.Instance.diseasePrefabs.Length;
         int randomDiseaseIndex = UnityEngine.Random.Range(0, diseaseCount);
         leaves[0].AddDisease(randomDiseaseIndex);
